@@ -38,89 +38,89 @@ function App() {
     return [
       new Player({
         id: 1,
-        firstName: 'Dylan',
-        lastName: 'Reynolds',
-        number: 22,
+        firstName: 'Sarah',
+        lastName: 'Smith',
+        number: 1,
         eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false },
         availability: { startInning: 1, endInning: 6 }
       }),
       new Player({
         id: 2,
-        firstName: 'Quinn',
-        lastName: 'Williams',
-        number: 7,
+        firstName: 'Jessica',
+        lastName: 'Johnson',
+        number: 2,
         eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false },
         availability: { startInning: 1, endInning: 6 }
       }),
       new Player({
         id: 3,
-        firstName: 'Viviana',
-        lastName: 'Vargas',
-        number: 12,
+        firstName: 'Ashley',
+        lastName: 'Williams',
+        number: 3,
         eligible: { P: true, C: true, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false },
         availability: { startInning: 1, endInning: 6 }
       }),
       new Player({
         id: 4,
-        firstName: 'Norah',
-        lastName: 'Evans',
-        number: 15,
+        firstName: 'Emily',
+        lastName: 'Brown',
+        number: 4,
         eligible: { P: false, C: true, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true },
         availability: { startInning: 1, endInning: 6 }
       }),
       new Player({
         id: 5,
-        firstName: 'Adalynn',
-        lastName: 'Garcia',
+        firstName: 'Amanda',
+        lastName: 'Jones',
         number: 5,
         eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false },
         availability: { startInning: 1, endInning: 6 }
       }),
       new Player({
         id: 6,
-        firstName: 'Ryleigh',
-        lastName: 'Gonzalez',
+        firstName: 'Samantha',
+        lastName: 'Garcia',
         number: 6,
         eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true },
         availability: { startInning: 1, endInning: 6 }
       }),
       new Player({
         id: 7,
-        firstName: 'Aria',
-        lastName: 'Martinez',
-        number: 3,
+        firstName: 'Jennifer',
+        lastName: 'Miller',
+        number: 7,
         eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true },
         availability: { startInning: 1, endInning: 6 }
       }),
       new Player({
         id: 8,
-        firstName: 'Piper',
-        lastName: 'Johnson',
-        number: 2,
+        firstName: 'Nicole',
+        lastName: 'Davis',
+        number: 8,
         eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true },
         availability: { startInning: 1, endInning: 6 }
       }),
       new Player({
         id: 9,
-        firstName: 'Grace',
-        lastName: 'Miller',
-        number: 14,
+        firstName: 'Elizabeth',
+        lastName: 'Rodriguez',
+        number: 9,
         eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true },
         availability: { startInning: 1, endInning: 6 }
       }),
       new Player({
         id: 10,
-        firstName: 'Mary Jo',
-        lastName: 'Jones',
-        number: 11,
+        firstName: 'Stephanie',
+        lastName: 'Martinez',
+        number: 10,
         eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true },
         availability: { startInning: 1, endInning: 6 }
       }),
       new Player({
         id: 11,
-        firstName: 'Elena',
-        lastName: 'Davis',
-        number: 8,
+        firstName: 'Lauren',
+        lastName: 'Hernandez',
+        number: 11,
         eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true },
         availability: { startInning: 1, endInning: 6 }
       })

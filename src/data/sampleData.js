@@ -3,75 +3,75 @@ import { GameConfig } from '../models/GameConfig.js';
 
 export const samplePlayers = [
   new Player({
-    firstName: 'Quinn',
-    lastName: 'White',
-    number: 7,
-    eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true }
+    firstName: 'Sarah',
+    lastName: 'Smith',
+    number: 1,
+    eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false }
   }),
   new Player({
-    firstName: 'Viviana',
-    lastName: 'Vasquez',
-    number: 12,
-    eligible: { P: true, C: true, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true }
+    firstName: 'Jessica',
+    lastName: 'Johnson',
+    number: 2,
+    eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false }
   }),
   new Player({
-    firstName: 'Norah',
-    lastName: 'Epple',
-    number: 15,
-    eligible: { P: true, C: true, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true }
-  }),
-  new Player({
-    firstName: 'Aria',
-    lastName: 'Moore',
+    firstName: 'Ashley',
+    lastName: 'Williams',
     number: 3,
-    eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true }
+    eligible: { P: true, C: true, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false }
   }),
   new Player({
-    firstName: 'Isla',
-    lastName: 'Kennedy',
-    number: 8,
-    eligible: { P: false, C: false, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true }
+    firstName: 'Emily',
+    lastName: 'Brown',
+    number: 4,
+    eligible: { P: false, C: true, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true }
   }),
   new Player({
-    firstName: 'Dylan',
-    lastName: 'Reynolds',
-    number: 22,
-    eligible: { P: false, C: false, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true }
-  }),
-  new Player({
-    firstName: 'Adalynn',
-    lastName: 'Green',
+    firstName: 'Amanda',
+    lastName: 'Jones',
     number: 5,
     eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false }
   }),
   new Player({
-    firstName: 'Ryleigh',
-    lastName: 'Green',
+    firstName: 'Samantha',
+    lastName: 'Garcia',
     number: 6,
     eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true }
   }),
   new Player({
-    firstName: 'Mary Jo',
-    lastName: 'Jimeno',
-    number: 11,
-    eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: false, CF: false, RF: false }
+    firstName: 'Jennifer',
+    lastName: 'Miller',
+    number: 7,
+    eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true }
   }),
   new Player({
-    firstName: 'Grace',
-    lastName: 'Mitchley',
-    number: 14,
-    eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: false, CF: false, RF: false }
+    firstName: 'Nicole',
+    lastName: 'Davis',
+    number: 8,
+    eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true }
   }),
   new Player({
-    firstName: 'Reagan',
-    lastName: 'Sams',
+    firstName: 'Elizabeth',
+    lastName: 'Rodriguez',
     number: 9,
-    eligible: { P: false, C: false, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true }
+    eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true }
   }),
   new Player({
-    firstName: 'Piper',
-    lastName: 'Gillingham',
-    number: 2,
+    firstName: 'Stephanie',
+    lastName: 'Martinez',
+    number: 10,
+    eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true }
+  }),
+  new Player({
+    firstName: 'Lauren',
+    lastName: 'Hernandez',
+    number: 11,
+    eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true }
+  }),
+  new Player({
+    firstName: 'Michelle',
+    lastName: 'Lopez',
+    number: 12,
     eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true }
   })
 ];
