@@ -185,7 +185,7 @@ const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance,
       <div className="panel-header">
         <h2>Fielding Assignments</h2>
         <button 
-          className="btn btn-secondary btn-sm"
+          className="btn btn-secondary"
           onClick={() => setShowGameInfo(!showGameInfo)}
         >
           {showGameInfo ? 'Hide' : 'Edit'} Game Info
