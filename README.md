@@ -81,15 +81,14 @@ npm run preview
 - Enter team name, opponent, date, time, and location
 
 ### 3. Generate Lineup
-- Click **"🎲 Regenerate Lineup"** to auto-generate
-- The system will create a fair lineup respecting all constraints
+- The system automatically generates lineups when you add players
+- Smart algorithm creates fair lineups respecting all constraints
 - Check the status bar for any validation messages
 
 ### 4. Customize Your Lineup
 - **Drag & Drop**: Move players between positions and innings
 - **Reorder Batting**: Drag players in the batting order panel
-- **Lock Innings**: Use the 🔒 button to prevent changes to specific innings
-- **Rebalance**: Use 🔄 button to regenerate from a specific inning
+- **Visual Feedback**: See insertion points during drag operations
 
 ### 5. Save and Export
 - **Save Lineup**: Click **"📋 Manage Lineups"** to save your current lineup
