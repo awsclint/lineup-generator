@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance, onToggleLock, players }) => {
   const [draggedPlayer, setDraggedPlayer] = useState(null);
   const [dragOverPosition, setDragOverPosition] = useState(null);
-  const [dragOverInning, setDragOverInning] = useState(null);
 
   // Helper function to get display name
   const getDisplayName = (player) => {
@@ -120,75 +119,6 @@ const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance,
     return badges.length > 0 ? ` (${badges.join(', ')})` : '';
   };
 
-  // Drag and drop handlers
-  const handleDragStart = (e, player) => {
-    e.dataTransfer.setData('text/plain', JSON.stringify({
-      type: 'player',
-      player: player
-    }));
-    setDraggedPlayer(player);
-    e.target.classList.add('dragging');
-  };
-
-  const handleDragEnd = (e) => {
-    setDraggedPlayer(null);
-    setDragOverPosition(null);
-    setDragOverInning(null);
-    e.target.classList.remove('dragging');
-  };
-
-  const handleDragOver = (e, inning, position) => {
-    e.preventDefault();
-    setDragOverPosition(position);
-    setDragOverInning(inning);
-  };
-
-  const handleDragLeave = (e) => {
-    // Only clear if we're actually leaving the drop zone
-    if (!e.currentTarget.contains(e.relatedTarget)) {
-      setDragOverPosition(null);
-      setDragOverInning(null);
-    }
-  };
-
-  const handleDrop = (e, inning, position) => {
-    e.preventDefault();
-    
-    try {
-      const data = JSON.parse(e.dataTransfer.getData('text/plain'));
-      
-      if (data.type === 'player' && data.player) {
-        // Check if player is eligible for this position
-        const isEligible = checkPlayerEligibility(data.player, position);
-        
-        if (isEligible) {
-          onUpdateLineup(inning, position, data.player);
-        } else {
-          alert(`${data.player.firstName} ${data.player.lastName} is not eligible for ${getPositionName(position)}`);
-        }
-      }
-    } catch (error) {
-      console.error('Error handling drop:', error);
-    }
-    
-    setDraggedPlayer(null);
-    setDragOverPosition(null);
-    setDragOverInning(null);
-  };
-
-  // Check if player is eligible for a position
-  const checkPlayerEligibility = (player, position) => {
-    if (!player || !player.eligible) return false;
-    
-    if (position === 'P') return player.eligible.P;
-    if (position === 'C') return player.eligible.C;
-    if (['1B', '2B', '3B', 'SS'].includes(position)) return player.eligible[position];
-    if (['LF', 'CF', 'RF'].includes(position)) return player.eligible[position];
-    if (position === 'Bench') return true; // All players can be on bench
-    
-    return false;
-  };
-
   const positions = ['P', 'C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF', 'Bench'];
 
   return (
@@ -208,27 +138,12 @@ const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance,
                 {positions.map(position => {
                   const currentPlayer = getCurrentPlayer(inning, position);
                   const eligiblePlayers = getEligiblePlayers(position, inning);
-                  const isDragOver = dragOverPosition === position && dragOverInning === inning;
-                  const canDrop = draggedPlayer ? checkPlayerEligibility(draggedPlayer, position) : true;
                   
                   return (
-                    <div 
-                      key={position} 
-                      className={`position-row ${isDragOver ? 'drag-over' : ''} ${!canDrop && draggedPlayer ? 'drop-invalid' : ''}`}
-                      onDragOver={(e) => handleDragOver(e, inning, position)}
-                      onDragLeave={handleDragLeave}
-                      onDrop={(e) => handleDrop(e, inning, position)}
-                    >
+                    <div key={position} className="position-row">
                       {/* Position label above the dropdown/display */}
                       <div className="position-row-label">
                         {getPositionName(position)}
-                        {isDragOver && (
-                          <div className="drop-preview">
-                            <div className="drop-preview-text">
-                              {canDrop ? 'Drop here' : 'Not eligible'}
-                            </div>
-                          </div>
-                        )}
                       </div>
                       
                       {/* Player assignment display */}
@@ -239,13 +154,7 @@ const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance,
                             <div className="bench-players">
                               {currentPlayer && Array.isArray(currentPlayer) && currentPlayer.length > 0 ? (
                                 currentPlayer.map(player => (
-                                  <div 
-                                    key={player.id} 
-                                    className="bench-player"
-                                    draggable="true"
-                                    onDragStart={(e) => handleDragStart(e, player)}
-                                    onDragEnd={handleDragEnd}
-                                  >
+                                  <div key={player.id} className="bench-player">
                                     {getDisplayName(player)} #{player.number}
                                   </div>
                                 ))
@@ -258,14 +167,11 @@ const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance,
                           // Regular position dropdown with current player display
                           <div className="position-dropdown-wrapper">
                             {currentPlayer ? (
-                              // Show assigned player prominently - clickable to change and draggable
+                              // Show assigned player prominently - clickable to change
                               <div 
                                 className="assigned-player-display clickable"
                                 onClick={() => handlePlayerChange(inning, position, '')}
-                                title="Click to change player or drag to move"
-                                draggable="true"
-                                onDragStart={(e) => handleDragStart(e, currentPlayer)}
-                                onDragEnd={handleDragEnd}
+                                title="Click to change player"
                               >
                                 <div className="assigned-player-name">
                                   {getDisplayName(currentPlayer)} #{currentPlayer.number}

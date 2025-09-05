@@ -1,9 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 const BattingOrderPanel = ({ lineup, onReorder }) => {
-  const [dragOverIndex, setDragOverIndex] = useState(null);
-  const [draggedIndex, setDraggedIndex] = useState(null);
-
   const handleDragStart = (e, player, index) => {
     try {
       if (!player || !player.id) {
@@ -18,7 +15,6 @@ const BattingOrderPanel = ({ lineup, onReorder }) => {
         index: index
       }));
       e.target.classList.add('dragging');
-      setDraggedIndex(index);
     } catch (error) {
       console.error('Error starting drag:', error);
     }
@@ -26,26 +22,14 @@ const BattingOrderPanel = ({ lineup, onReorder }) => {
 
   const handleDragEnd = (e) => {
     e.target.classList.remove('dragging');
-    setDragOverIndex(null);
-    setDraggedIndex(null);
   };
 
-  const handleDragOver = (e, targetIndex) => {
+  const handleDragOver = (e) => {
     e.preventDefault();
-    setDragOverIndex(targetIndex);
-  };
-
-  const handleDragLeave = (e) => {
-    // Only clear drag over if we're actually leaving the container
-    if (!e.currentTarget.contains(e.relatedTarget)) {
-      setDragOverIndex(null);
-    }
   };
 
   const handleDrop = (e, targetIndex) => {
     e.preventDefault();
-    setDragOverIndex(null);
-    setDraggedIndex(null);
     
     try {
       // Validate that we have valid lineup data
@@ -101,45 +85,29 @@ const BattingOrderPanel = ({ lineup, onReorder }) => {
 
       {lineup && lineup.battingOrder && Array.isArray(lineup.battingOrder) ? (
         <div className="batting-order-list">
-          {lineup.battingOrder.map((player, index) => {
-            const isDragged = draggedIndex === index;
-            const isDragOver = dragOverIndex === index;
-            const showInsertPreview = isDragOver && draggedIndex !== null && draggedIndex !== index;
-            
-            return (
-              <React.Fragment key={player.id}>
-                {/* Insert preview line */}
-                {showInsertPreview && (
-                  <div className="batting-order-insert-preview">
-                    <div className="insert-line"></div>
-                    <div className="insert-text">Drop here to insert</div>
-                  </div>
-                )}
-                
-                <div
-                  className={`batting-order-item ${isDragged ? 'dragging' : ''} ${isDragOver ? 'drag-over' : ''}`}
-                  draggable="true"
-                  onDragStart={(e) => handleDragStart(e, player, index)}
-                  onDragEnd={handleDragEnd}
-                  onDragOver={(e) => handleDragOver(e, index)}
-                  onDragLeave={handleDragLeave}
-                  onDrop={(e) => handleDrop(e, index)}
-                  style={{ cursor: 'move' }}
-                >
-                  <div className="batting-order-number">{index + 1}</div>
-                  
-                  <div className="batting-order-info">
-                    <div className="batting-order-name">
-                      {getDisplayName(player)}
-                      {player.number && (
-                        <span className="batting-order-number-inline"> #{player.number}</span>
-                      )}
-                    </div>
-                  </div>
+          {lineup.battingOrder.map((player, index) => (
+            <div
+              key={player.id}
+              className="batting-order-item"
+              draggable="true"
+              onDragStart={(e) => handleDragStart(e, player, index)}
+              onDragEnd={handleDragEnd}
+              onDragOver={handleDragOver}
+              onDrop={(e) => handleDrop(e, index)}
+              style={{ cursor: 'move' }}
+            >
+              <div className="batting-order-number">{index + 1}</div>
+              
+              <div className="batting-order-info">
+                <div className="batting-order-name">
+                  {getDisplayName(player)}
+                  {player.number && (
+                    <span className="batting-order-number-inline"> #{player.number}</span>
+                  )}
                 </div>
-              </React.Fragment>
-            );
-          })}
+              </div>
+            </div>
+          ))}
         </div>
       ) : (
         <div style={{ 
