@@ -6,9 +6,7 @@ import {
   renameBattingOrder,
   exportBattingOrder,
   importBattingOrder,
-  saveBattingOrder,
-  saveToGoogleDrive,
-  loadFromGoogleDrive
+  saveBattingOrder
 } from '../utils/battingOrderStorage.js';
 
 const BattingOrderManager = ({ 
@@ -44,7 +42,7 @@ const BattingOrderManager = ({
 
   const handleSaveOrder = () => {
     if (!saveName.trim()) {
-      setMessage('Please enter a name for the batting order');
+      setMessage('Please enter a name for the lineup');
       return;
     }
 
@@ -68,7 +66,7 @@ const BattingOrderManager = ({
     const result = loadBattingOrder(orderId);
     if (result.success) {
       onLoadOrder(result.data);
-      setMessage(`Loaded batting order "${result.data.name}"`);
+      setMessage(`Loaded lineup "${result.data.name}"`);
       onClose();
     } else {
       setMessage(result.message);
@@ -119,15 +117,6 @@ const BattingOrderManager = ({
     });
   };
 
-  const handleGoogleDriveSave = async (orderId) => {
-    const result = await saveToGoogleDrive(orderId);
-    setMessage(result.message);
-  };
-
-  const handleGoogleDriveLoad = async () => {
-    const result = await loadFromGoogleDrive();
-    setMessage(result.message);
-  };
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString() + ' ' + 
@@ -140,7 +129,7 @@ const BattingOrderManager = ({
     <div className="modal-overlay">
       <div className="modal-content batting-order-manager">
         <div className="modal-header">
-          <h2>Manage Batting Orders</h2>
+          <h2>Manage Lineups</h2>
           <button className="modal-close" onClick={onClose}>×</button>
         </div>
 
@@ -156,27 +145,21 @@ const BattingOrderManager = ({
               className="btn btn-primary"
               onClick={() => setShowSaveDialog(true)}
             >
-              💾 Save Current Order
+              💾 Save Current Lineup
             </button>
             <button 
               className="btn btn-secondary"
               onClick={() => setShowImportDialog(true)}
             >
-              📥 Import Order
-            </button>
-            <button 
-              className="btn btn-secondary"
-              onClick={handleGoogleDriveLoad}
-            >
-              ☁️ Load from Google Drive
+              📥 Import Lineup
             </button>
           </div>
 
           <div className="saved-orders-list">
-            <h3>Saved Batting Orders ({savedOrders.length})</h3>
+            <h3>Saved Lineups ({savedOrders.length})</h3>
             {savedOrders.length === 0 ? (
               <div className="empty-state">
-                <p>No saved batting orders yet</p>
+                <p>No saved lineups yet</p>
                 <p>Save your current lineup to get started!</p>
               </div>
             ) : (
@@ -224,12 +207,6 @@ const BattingOrderManager = ({
                       >
                         Export
                       </button>
-                      <button 
-                        className="btn btn-secondary btn-sm"
-                        onClick={() => handleGoogleDriveSave(order.id)}
-                      >
-                        Save to Drive
-                      </button>
                     </div>
                   </div>
                 ))}
@@ -243,17 +220,17 @@ const BattingOrderManager = ({
           <div className="modal-overlay">
             <div className="modal-content save-dialog">
               <div className="modal-header">
-                <h3>Save Batting Order</h3>
+                <h3>Save Lineup</h3>
                 <button className="modal-close" onClick={() => setShowSaveDialog(false)}>×</button>
               </div>
               <div className="modal-body">
                 <div className="form-group">
-                  <label>Order Name:</label>
+                  <label>Lineup Name:</label>
                   <input
                     type="text"
                     value={saveName}
                     onChange={(e) => setSaveName(e.target.value)}
-                    placeholder="Enter a name for this batting order"
+                    placeholder="Enter a name for this lineup"
                     autoFocus
                   />
                 </div>
@@ -275,7 +252,7 @@ const BattingOrderManager = ({
           <div className="modal-overlay">
             <div className="modal-content save-dialog">
               <div className="modal-header">
-                <h3>Rename Batting Order</h3>
+                <h3>Rename Lineup</h3>
                 <button className="modal-close" onClick={() => setShowRenameDialog(false)}>×</button>
               </div>
               <div className="modal-body">
@@ -307,7 +284,7 @@ const BattingOrderManager = ({
           <div className="modal-overlay">
             <div className="modal-content save-dialog">
               <div className="modal-header">
-                <h3>Import Batting Order</h3>
+                <h3>Import Lineup</h3>
                 <button className="modal-close" onClick={() => setShowImportDialog(false)}>×</button>
               </div>
               <div className="modal-body">
