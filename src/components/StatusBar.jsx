@@ -1,6 +1,6 @@
 import React from 'react';
 
-const StatusBar = ({ lineup, onExportPDF, onExportCSV, onExportPNG, onPrint, lastSaved }) => {
+const StatusBar = ({ lineup, onExportPDF, onExportCSV, onExportPNG, onPrint, onManageBattingOrders, lastSaved }) => {
   // Safety checks for lineup and its methods
   if (!lineup) {
     return (
@@ -64,6 +64,10 @@ const StatusBar = ({ lineup, onExportPDF, onExportCSV, onExportPNG, onPrint, las
       </div>
       
       <div className="action-buttons">
+        <button className="btn btn-secondary" onClick={onManageBattingOrders} title="Save and manage batting orders">
+          📋 Manage Orders
+        </button>
+        <div className="button-divider"></div>
         <button className="btn btn-primary" onClick={onExportPDF} title="Export to PDF with full lineup details">
           📄 PDF
         </button>

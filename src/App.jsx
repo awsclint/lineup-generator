@@ -7,6 +7,7 @@ import RosterManagement from './components/RosterManagement';
 import BattingOrderPanel from './components/BattingOrderPanel.jsx';
 import InningBoard from './components/InningBoard.jsx';
 import StatusBar from './components/StatusBar.jsx';
+import BattingOrderManager from './components/BattingOrderManager.jsx';
 import { exportToPDF, exportToCSV, exportToPNG } from './utils/exportUtils.js';
 import { 
   savePlayers, 
@@ -168,6 +169,9 @@ function App() {
 
   // State for showing save status
   const [lastSaved, setLastSaved] = useState(null);
+  
+  // State for batting order manager
+  const [showBattingOrderManager, setShowBattingOrderManager] = useState(false);
 
   // Update last saved time when data is saved
   useEffect(() => {
@@ -477,6 +481,32 @@ function App() {
     });
   };
 
+  const handleLoadBattingOrder = (orderData) => {
+    try {
+      // Load players
+      if (orderData.players) {
+        setPlayers(orderData.players);
+      }
+      
+      // Load fielding assignments
+      if (orderData.fieldingAssignments) {
+        setFieldingAssignments(orderData.fieldingAssignments);
+      }
+      
+      // Load lineup
+      if (orderData.battingOrder) {
+        const newLineup = new Lineup(orderData.players || players);
+        newLineup.battingOrder = orderData.battingOrder;
+        setLineup(newLineup);
+      }
+      
+      console.log('Batting order loaded successfully');
+    } catch (error) {
+      console.error('Failed to load batting order:', error);
+      alert('Failed to load batting order. Please try again.');
+    }
+  };
+
   if (currentView === 'roster') {
     return (
       <RosterManagement
@@ -525,7 +555,19 @@ function App() {
         onExportCSV={handleExportCSV}
         onExportPNG={handleExportPNG}
         onPrint={handlePrint}
+        onManageBattingOrders={() => setShowBattingOrderManager(true)}
         lastSaved={lastSaved}
+      />
+
+      {/* Batting Order Manager Modal */}
+      <BattingOrderManager
+        isOpen={showBattingOrderManager}
+        onClose={() => setShowBattingOrderManager(false)}
+        onLoadOrder={handleLoadBattingOrder}
+        currentBattingOrder={lineup?.battingOrder || []}
+        currentFieldingAssignments={fieldingAssignments}
+        currentPlayers={players}
+        currentConfig={null}
       />
     </div>
   );
