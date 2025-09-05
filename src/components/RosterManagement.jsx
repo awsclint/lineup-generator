@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Header from './Header.jsx';
 
-const RosterManagement = ({ players, onAddPlayer, onUpdatePlayer, onRemovePlayer, onBack, currentView, onViewChange }) => {
+const RosterManagement = ({ players, onAddPlayer, onUpdatePlayer, onRemovePlayer, onBack, currentView, onViewChange, onExportRoster, onImportRoster }) => {
   const [showAddForm, setShowAddForm] = useState(false);
   const [editingPlayer, setEditingPlayer] = useState(null);
   const [formData, setFormData] = useState({
@@ -111,13 +111,33 @@ const RosterManagement = ({ players, onAddPlayer, onUpdatePlayer, onRemovePlayer
 
       <div className="roster-content">
         <div className="roster-header">
-          <h2>Roster Management</h2>
-          <button 
-            className="btn btn-primary"
-            onClick={() => setShowAddForm(true)}
-          >
-            + Add Player
-          </button>
+          <div className="roster-title-section">
+            <h2>Roster Management</h2>
+            <div className="roster-actions">
+              <button 
+                className="btn btn-secondary"
+                onClick={onExportRoster}
+                title="Export roster to share with other coaches"
+              >
+                👥 Export Roster
+              </button>
+              <label className="btn btn-secondary" title="Import roster from another coach">
+                📥 Import Roster
+                <input
+                  type="file"
+                  accept=".json"
+                  onChange={onImportRoster}
+                  style={{ display: 'none' }}
+                />
+              </label>
+              <button 
+                className="btn btn-primary"
+                onClick={() => setShowAddForm(true)}
+              >
+                + Add Player
+              </button>
+            </div>
+          </div>
         </div>
 
       {showAddForm && (

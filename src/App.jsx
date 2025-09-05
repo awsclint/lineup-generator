@@ -487,6 +487,8 @@ function App() {
         onBack={handleBackToLineup}
         currentView={currentView}
         onViewChange={setCurrentView}
+        onExportRoster={handleExportRoster}
+        onImportRoster={handleImportRoster}
       />
     );
   }
@@ -523,8 +525,6 @@ function App() {
         onExportCSV={handleExportCSV}
         onExportPNG={handleExportPNG}
         onPrint={handlePrint}
-        onExportRoster={handleExportRoster}
-        onImportRoster={handleImportRoster}
         lastSaved={lastSaved}
       />
     </div>
