@@ -8,99 +8,124 @@ import BattingOrderPanel from './components/BattingOrderPanel.jsx';
 import InningBoard from './components/InningBoard.jsx';
 import StatusBar from './components/StatusBar.jsx';
 import { exportToPDF, exportToCSV, exportToPNG } from './utils/exportUtils.js';
+import { 
+  savePlayers, 
+  loadPlayers, 
+  saveLineup, 
+  loadLineup, 
+  saveConfig, 
+  loadConfig, 
+  hasStoredData,
+  getLastSaved,
+  exportRoster,
+  importRoster,
+  validateRosterFile
+} from './utils/storageUtils.js';
 
 function App() {
   const [currentView, setCurrentView] = useState('lineup');
-  const [players, setPlayers] = useState([
-    new Player({
-      id: 1,
-      firstName: 'Dylan',
-      lastName: 'Reynolds',
-      number: 22,
-      eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false },
-      availability: { startInning: 1, endInning: 6 }
-    }),
-    new Player({
-      id: 2,
-      firstName: 'Quinn',
-      lastName: 'Williams',
-      number: 7,
-      eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false },
-      availability: { startInning: 1, endInning: 6 }
-    }),
-    new Player({
-      id: 3,
-      firstName: 'Viviana',
-      lastName: 'Vargas',
-      number: 12,
-      eligible: { P: true, C: true, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false },
-      availability: { startInning: 1, endInning: 6 }
-    }),
-    new Player({
-      id: 4,
-      firstName: 'Norah',
-      lastName: 'Evans',
-      number: 15,
-      eligible: { P: false, C: true, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true },
-      availability: { startInning: 1, endInning: 6 }
-    }),
-    new Player({
-      id: 5,
-      firstName: 'Adalynn',
-      lastName: 'Garcia',
-      number: 5,
-      eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false },
-      availability: { startInning: 1, endInning: 6 }
-    }),
-    new Player({
-      id: 6,
-      firstName: 'Ryleigh',
-      lastName: 'Gonzalez',
-      number: 6,
-      eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true },
-      availability: { startInning: 1, endInning: 6 }
-    }),
-    new Player({
-      id: 7,
-      firstName: 'Aria',
-      lastName: 'Martinez',
-      number: 3,
-      eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true },
-      availability: { startInning: 1, endInning: 6 }
-    }),
-    new Player({
-      id: 8,
-      firstName: 'Piper',
-      lastName: 'Johnson',
-      number: 2,
-      eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true },
-      availability: { startInning: 1, endInning: 6 }
-    }),
-    new Player({
-      id: 9,
-      firstName: 'Grace',
-      lastName: 'Miller',
-      number: 14,
-      eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true },
-      availability: { startInning: 1, endInning: 6 }
-    }),
-    new Player({
-      id: 10,
-      firstName: 'Mary Jo',
-      lastName: 'Jones',
-      number: 11,
-      eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true },
-      availability: { startInning: 1, endInning: 6 }
-    }),
-    new Player({
-      id: 11,
-      firstName: 'Elena',
-      lastName: 'Davis',
-      number: 8,
-      eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true },
-      availability: { startInning: 1, endInning: 6 }
-    })
-  ]);
+  
+  // Initialize players from localStorage or use default sample data
+  const [players, setPlayers] = useState(() => {
+    const storedPlayers = loadPlayers();
+    if (storedPlayers && storedPlayers.length > 0) {
+      console.log('Loaded players from localStorage');
+      return storedPlayers;
+    }
+    
+    // Default sample players if no stored data
+    console.log('Using default sample players');
+    return [
+      new Player({
+        id: 1,
+        firstName: 'Dylan',
+        lastName: 'Reynolds',
+        number: 22,
+        eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false },
+        availability: { startInning: 1, endInning: 6 }
+      }),
+      new Player({
+        id: 2,
+        firstName: 'Quinn',
+        lastName: 'Williams',
+        number: 7,
+        eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false },
+        availability: { startInning: 1, endInning: 6 }
+      }),
+      new Player({
+        id: 3,
+        firstName: 'Viviana',
+        lastName: 'Vargas',
+        number: 12,
+        eligible: { P: true, C: true, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false },
+        availability: { startInning: 1, endInning: 6 }
+      }),
+      new Player({
+        id: 4,
+        firstName: 'Norah',
+        lastName: 'Evans',
+        number: 15,
+        eligible: { P: false, C: true, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true },
+        availability: { startInning: 1, endInning: 6 }
+      }),
+      new Player({
+        id: 5,
+        firstName: 'Adalynn',
+        lastName: 'Garcia',
+        number: 5,
+        eligible: { P: true, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: false, CF: false, RF: false },
+        availability: { startInning: 1, endInning: 6 }
+      }),
+      new Player({
+        id: 6,
+        firstName: 'Ryleigh',
+        lastName: 'Gonzalez',
+        number: 6,
+        eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true },
+        availability: { startInning: 1, endInning: 6 }
+      }),
+      new Player({
+        id: 7,
+        firstName: 'Aria',
+        lastName: 'Martinez',
+        number: 3,
+        eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true },
+        availability: { startInning: 1, endInning: 6 }
+      }),
+      new Player({
+        id: 8,
+        firstName: 'Piper',
+        lastName: 'Johnson',
+        number: 2,
+        eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true },
+        availability: { startInning: 1, endInning: 6 }
+      }),
+      new Player({
+        id: 9,
+        firstName: 'Grace',
+        lastName: 'Miller',
+        number: 14,
+        eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true },
+        availability: { startInning: 1, endInning: 6 }
+      }),
+      new Player({
+        id: 10,
+        firstName: 'Mary Jo',
+        lastName: 'Jones',
+        number: 11,
+        eligible: { P: false, C: true, '1B': false, '2B': false, '3B': false, SS: false, LF: true, CF: true, RF: true },
+        availability: { startInning: 1, endInning: 6 }
+      }),
+      new Player({
+        id: 11,
+        firstName: 'Elena',
+        lastName: 'Davis',
+        number: 8,
+        eligible: { P: false, C: false, '1B': true, '2B': true, '3B': true, SS: true, LF: true, CF: true, RF: true },
+        availability: { startInning: 1, endInning: 6 }
+      })
+    ];
+  });
 
   // Initialize fielding assignments state
   const [fieldingAssignments, setFieldingAssignments] = useState(() => {
@@ -126,6 +151,31 @@ function App() {
     const initialLineup = new Lineup(players);
     return initialLineup;
   });
+
+  // Auto-save players when they change
+  useEffect(() => {
+    if (players && players.length > 0) {
+      savePlayers(players);
+    }
+  }, [players]);
+
+  // Auto-save lineup when it changes
+  useEffect(() => {
+    if (lineup) {
+      saveLineup(lineup);
+    }
+  }, [lineup]);
+
+  // State for showing save status
+  const [lastSaved, setLastSaved] = useState(null);
+
+  // Update last saved time when data is saved
+  useEffect(() => {
+    const saved = getLastSaved();
+    if (saved) {
+      setLastSaved(saved);
+    }
+  }, [players, lineup]);
 
   const handleAddPlayer = (player) => {
     setPlayers(prev => [...prev, new Player({ ...player, id: Date.now() })]);
@@ -379,6 +429,54 @@ function App() {
     }
   };
 
+  const handleExportRoster = () => {
+    try {
+      const config = loadConfig();
+      const success = exportRoster(players, config);
+      if (success) {
+        alert('Roster exported successfully!');
+      } else {
+        alert('Failed to export roster. Please try again.');
+      }
+    } catch (error) {
+      console.error('Export roster failed:', error);
+      alert('Export failed. Please try again.');
+    }
+  };
+
+  const handleImportRoster = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    // Validate file first
+    validateRosterFile(file).then(validation => {
+      if (!validation.valid) {
+        alert(`Invalid file: ${validation.message}`);
+        return;
+      }
+
+      // Import the roster
+      importRoster(file)
+        .then(result => {
+          if (result.success) {
+            setPlayers(result.players);
+            if (result.config) {
+              // Config would be loaded automatically by the storage utility
+            }
+            alert(result.message);
+            // Reset the file input
+            event.target.value = '';
+          } else {
+            alert(`Import failed: ${result.message}`);
+          }
+        })
+        .catch(error => {
+          console.error('Import failed:', error);
+          alert(`Import failed: ${error.message}`);
+        });
+    });
+  };
+
   if (currentView === 'roster') {
     return (
       <RosterManagement
@@ -425,6 +523,9 @@ function App() {
         onExportCSV={handleExportCSV}
         onExportPNG={handleExportPNG}
         onPrint={handlePrint}
+        onExportRoster={handleExportRoster}
+        onImportRoster={handleImportRoster}
+        lastSaved={lastSaved}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const StatusBar = ({ lineup, onExportPDF, onExportCSV, onExportPNG, onPrint }) => {
+const StatusBar = ({ lineup, onExportPDF, onExportCSV, onExportPNG, onPrint, onExportRoster, onImportRoster, lastSaved }) => {
   // Safety checks for lineup and its methods
   if (!lineup) {
     return (
@@ -56,9 +56,27 @@ const StatusBar = ({ lineup, onExportPDF, onExportCSV, onExportPNG, onPrint }) =
             Lineup is valid and ready
           </div>
         )}
+        {lastSaved && (
+          <div className="status-info">
+            💾 Last saved: {lastSaved.toLocaleTimeString()}
+          </div>
+        )}
       </div>
       
       <div className="action-buttons">
+        <button className="btn btn-secondary" onClick={onExportRoster} title="Export roster to share with other coaches">
+          👥 Export Roster
+        </button>
+        <label className="btn btn-secondary" title="Import roster from another coach">
+          📥 Import Roster
+          <input
+            type="file"
+            accept=".json"
+            onChange={onImportRoster}
+            style={{ display: 'none' }}
+          />
+        </label>
+        <div className="button-divider"></div>
         <button className="btn btn-primary" onClick={onExportPDF} title="Export to PDF with full lineup details">
           📄 PDF
         </button>
