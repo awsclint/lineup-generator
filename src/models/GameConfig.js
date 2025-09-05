@@ -3,6 +3,7 @@ export class GameConfig {
     this.teamName = data.teamName || 'Your Team';
     this.opponent = data.opponent || 'Opponent';
     this.date = data.date || new Date().toISOString().split('T')[0];
+    this.time = data.time || 'TBD';
     this.field = data.field || 'Home Field';
     this.isHome = data.isHome !== undefined ? data.isHome : true;
     this.innings = 6; // Fixed for softball
@@ -33,6 +34,7 @@ export class GameConfig {
       teamName: this.teamName,
       opponent: this.opponent,
       date: this.date,
+      time: this.time,
       field: this.field,
       isHome: this.isHome,
       innings: this.innings,
@@ -56,6 +58,7 @@ export class GameConfig {
       teamName: 'Your Team',
       opponent: 'Opponent',
       date: new Date().toISOString().split('T')[0],
+      time: 'TBD',
       field: 'Home Field',
       isHome: true,
       enforcePitcherRules: true,

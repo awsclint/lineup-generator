@@ -1,0 +1,422 @@
+{
+  "name": "Thunder vs Lightning - Championship Game",
+  "battingOrder": [
+    "player-1",
+    "player-2", 
+    "player-3",
+    "player-4",
+    "player-5",
+    "player-6",
+    "player-7",
+    "player-8",
+    "player-9",
+    "player-10",
+    "player-11",
+    "player-12"
+  ],
+  "players": [
+    {
+      "id": "player-1",
+      "firstName": "Sarah",
+      "lastName": "Johnson",
+      "number": 12,
+      "eligible": {
+        "P": true,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      },
+      "availability": {
+        "startInning": 1,
+        "endInning": 6
+      },
+      "pitchingStats": {
+        "totalPitched": 0,
+        "currentConsecutivePitched": 0,
+        "lastPitchedInning": null
+      }
+    },
+    {
+      "id": "player-2",
+      "firstName": "Mike",
+      "lastName": "Rodriguez",
+      "number": 7,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      },
+      "availability": {
+        "startInning": 1,
+        "endInning": 6
+      },
+      "pitchingStats": {
+        "totalPitched": 0,
+        "currentConsecutivePitched": 0,
+        "lastPitchedInning": null
+      }
+    },
+    {
+      "id": "player-3",
+      "firstName": "Emma",
+      "lastName": "Williams",
+      "number": 23,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": false,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      },
+      "availability": {
+        "startInning": 1,
+        "endInning": 6
+      },
+      "pitchingStats": {
+        "totalPitched": 0,
+        "currentConsecutivePitched": 0,
+        "lastPitchedInning": null
+      }
+    },
+    {
+      "id": "player-4",
+      "firstName": "David",
+      "lastName": "Brown",
+      "number": 5,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": false,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      },
+      "availability": {
+        "startInning": 1,
+        "endInning": 6
+      },
+      "pitchingStats": {
+        "totalPitched": 0,
+        "currentConsecutivePitched": 0,
+        "lastPitchedInning": null
+      }
+    },
+    {
+      "id": "player-5",
+      "firstName": "Lisa",
+      "lastName": "Garcia",
+      "number": 18,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": false,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      },
+      "availability": {
+        "startInning": 1,
+        "endInning": 6
+      },
+      "pitchingStats": {
+        "totalPitched": 0,
+        "currentConsecutivePitched": 0,
+        "lastPitchedInning": null
+      }
+    },
+    {
+      "id": "player-6",
+      "firstName": "Chris",
+      "lastName": "Martinez",
+      "number": 9,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": false,
+        "CF": true,
+        "RF": true
+      },
+      "availability": {
+        "startInning": 1,
+        "endInning": 6
+      },
+      "pitchingStats": {
+        "totalPitched": 0,
+        "currentConsecutivePitched": 0,
+        "lastPitchedInning": null
+      }
+    },
+    {
+      "id": "player-7",
+      "firstName": "Amy",
+      "lastName": "Anderson",
+      "number": 14,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": false,
+        "RF": true
+      },
+      "availability": {
+        "startInning": 1,
+        "endInning": 6
+      },
+      "pitchingStats": {
+        "totalPitched": 0,
+        "currentConsecutivePitched": 0,
+        "lastPitchedInning": null
+      }
+    },
+    {
+      "id": "player-8",
+      "firstName": "Tom",
+      "lastName": "Wilson",
+      "number": 3,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": false
+      },
+      "availability": {
+        "startInning": 1,
+        "endInning": 6
+      },
+      "pitchingStats": {
+        "totalPitched": 0,
+        "currentConsecutivePitched": 0,
+        "lastPitchedInning": null
+      }
+    },
+    {
+      "id": "player-9",
+      "firstName": "Jessica",
+      "lastName": "Taylor",
+      "number": 21,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      },
+      "availability": {
+        "startInning": 1,
+        "endInning": 6
+      },
+      "pitchingStats": {
+        "totalPitched": 0,
+        "currentConsecutivePitched": 0,
+        "lastPitchedInning": null
+      }
+    },
+    {
+      "id": "player-10",
+      "firstName": "Ryan",
+      "lastName": "Thomas",
+      "number": 8,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      },
+      "availability": {
+        "startInning": 1,
+        "endInning": 6
+      },
+      "pitchingStats": {
+        "totalPitched": 0,
+        "currentConsecutivePitched": 0,
+        "lastPitchedInning": null
+      }
+    },
+    {
+      "id": "player-11",
+      "firstName": "Maria",
+      "lastName": "Lee",
+      "number": 15,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      },
+      "availability": {
+        "startInning": 1,
+        "endInning": 6
+      },
+      "pitchingStats": {
+        "totalPitched": 0,
+        "currentConsecutivePitched": 0,
+        "lastPitchedInning": null
+      }
+    },
+    {
+      "id": "player-12",
+      "firstName": "Kevin",
+      "lastName": "White",
+      "number": 6,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      },
+      "availability": {
+        "startInning": 1,
+        "endInning": 6
+      },
+      "pitchingStats": {
+        "totalPitched": 0,
+        "currentConsecutivePitched": 0,
+        "lastPitchedInning": null
+      }
+    }
+  ],
+  "fieldingAssignments": {
+    "1": {
+      "P": "player-1",
+      "C": "player-3",
+      "1B": "player-2",
+      "2B": "player-4",
+      "3B": "player-5",
+      "SS": "player-6",
+      "LF": "player-7",
+      "CF": "player-8",
+      "RF": "player-9",
+      "Bench": ["player-10", "player-11", "player-12"]
+    },
+    "2": {
+      "P": "player-2",
+      "C": "player-5",
+      "1B": "player-1",
+      "2B": "player-6",
+      "3B": "player-4",
+      "SS": "player-7",
+      "LF": "player-8",
+      "CF": "player-9",
+      "RF": "player-10",
+      "Bench": ["player-3", "player-11", "player-12"]
+    },
+    "3": {
+      "P": "player-6",
+      "C": "player-9",
+      "1B": "player-3",
+      "2B": "player-7",
+      "3B": "player-1",
+      "SS": "player-8",
+      "LF": "player-10",
+      "CF": "player-11",
+      "RF": "player-12",
+      "Bench": ["player-2", "player-4", "player-5"]
+    },
+    "4": {
+      "P": "player-10",
+      "C": "player-11",
+      "1B": "player-4",
+      "2B": "player-8",
+      "3B": "player-2",
+      "SS": "player-9",
+      "LF": "player-12",
+      "CF": "player-1",
+      "RF": "player-3",
+      "Bench": ["player-5", "player-6", "player-7"]
+    },
+    "5": {
+      "P": "player-12",
+      "C": "player-1",
+      "1B": "player-5",
+      "2B": "player-9",
+      "3B": "player-6",
+      "SS": "player-10",
+      "LF": "player-3",
+      "CF": "player-4",
+      "RF": "player-7",
+      "Bench": ["player-2", "player-8", "player-11"]
+    },
+    "6": {
+      "P": "player-3",
+      "C": "player-4",
+      "1B": "player-6",
+      "2B": "player-10",
+      "3B": "player-7",
+      "SS": "player-11",
+      "LF": "player-2",
+      "CF": "player-5",
+      "RF": "player-8",
+      "Bench": ["player-1", "player-9", "player-12"]
+    }
+  },
+  "config": {
+    "teamName": "Thunder",
+    "opponent": "Lightning",
+    "date": "2025-09-05",
+    "time": "7:00 PM",
+    "field": "Championship Field",
+    "enforcePitcherRules": true,
+    "minFieldInnings": 2,
+    "maxConsecutivePitching": 2,
+    "maxTotalPitching": 3
+  },
+  "lockedInnings": [],
+  "createdAt": "2025-01-27T10:00:00.000Z",
+  "updatedAt": "2025-01-27T10:00:00.000Z",
+  "exportDate": "2025-01-27T10:00:00.000Z",
+  "version": "1.0",
+  "app": "Softball Lineup Generator"
+}

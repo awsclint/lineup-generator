@@ -8,7 +8,7 @@ import BattingOrderPanel from './components/BattingOrderPanel.jsx';
 import InningBoard from './components/InningBoard.jsx';
 import StatusBar from './components/StatusBar.jsx';
 import BattingOrderManager from './components/BattingOrderManager.jsx';
-import { exportToPDF, exportToCSV, exportToPNG } from './utils/exportUtils.js';
+import { exportToPDF, exportToCSV } from './utils/exportUtils.js';
 import { 
   savePlayers, 
   loadPlayers, 
@@ -345,16 +345,17 @@ function App() {
     }
 
     try {
-      // Create a config object for the export
-      const config = {
-        teamName: 'Your Team',
-        opponent: 'Opponent',
-        date: new Date().toLocaleDateString(),
-        field: 'Field 1',
+      // Load current game info from config
+      const config = loadConfig() || {};
+      const gameInfo = {
+        teamName: config.teamName || 'Your Team',
+        opponent: config.opponent || 'Opponent',
+        date: config.date || new Date().toLocaleDateString(),
+        field: config.field || 'Field 1',
         isHome: true
       };
 
-      exportToPDF(lineup, config);
+      exportToPDF(lineup, gameInfo);
     } catch (error) {
       console.error('PDF export failed:', error);
       alert('PDF export failed. Please try again.');
@@ -368,68 +369,220 @@ function App() {
     }
 
     try {
-      // Create a config object for the export
-      const config = {
-        teamName: 'Your Team',
-        opponent: 'Opponent',
-        date: new Date().toLocaleDateString(),
-        field: 'Field 1',
+      // Load current game info from config
+      const config = loadConfig() || {};
+      const gameInfo = {
+        teamName: config.teamName || 'Your Team',
+        opponent: config.opponent || 'Opponent',
+        date: config.date || new Date().toLocaleDateString(),
+        field: config.field || 'Field 1',
         isHome: true
       };
 
-      exportToCSV(lineup, config);
+      exportToCSV(lineup, gameInfo);
     } catch (error) {
       console.error('CSV export failed:', error);
       alert('CSV export failed. Please try again.');
     }
   };
 
-  const handleExportPNG = () => {
-    if (!lineup) {
-      alert('No lineup data to export');
-      return;
+
+  // Generate PDF content for printing
+  const generatePDFContent = (lineup, fieldingAssignments, players, gameInfo) => {
+    if (!lineup || !lineup.battingOrder) {
+      return '<div>No lineup data available</div>';
     }
 
-    try {
-      // Create a config object for the export
-      const config = {
-        teamName: 'Your Team',
-        opponent: 'Opponent',
-        date: new Date().toLocaleDateString(),
-        field: 'Field 1',
-        isHome: true
-      };
+    const formatPlayerName = (player) => {
+      return `${player.firstName} ${player.lastName ? player.lastName.charAt(0) + '.' : ''}`;
+    };
 
-      exportToPNG('lineup-board', `${config.teamName}_vs_${config.opponent}_${config.date}.png`);
-    } catch (error) {
-      console.error('PNG export failed:', error);
-      alert('PNG export failed. Please try again.');
-    }
+    // Convert 24-hour time to 12-hour format
+    const formatTime12Hour = (time24) => {
+      if (!time24 || time24 === 'TBD') return time24;
+      
+      const [hours, minutes] = time24.split(':');
+      const hour = parseInt(hours, 10);
+      const ampm = hour >= 12 ? 'PM' : 'AM';
+      const hour12 = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+      
+      return `${hour12}:${minutes} ${ampm}`;
+    };
+
+    const getFieldingPosition = (playerId, inning) => {
+      return fieldingAssignments[`${playerId}_${inning}`] || 'Bench';
+    };
+
+    const positions = ['P', 'C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF'];
+    const innings = [1, 2, 3, 4, 5, 6];
+
+    return `
+      <style>
+        @media print {
+          .page-break { page-break-before: always; }
+        }
+        .page-break { 
+          border-top: 2px solid #333; 
+          margin-top: 20px; 
+          padding-top: 20px; 
+        }
+        @media screen {
+          .page-break { 
+            border-top: 2px solid #333; 
+            margin-top: 40px; 
+            padding-top: 40px; 
+          }
+        }
+      </style>
+      
+      <div style="width: 100%; max-width: 8.5in; margin: 0 auto; font-family: Arial, sans-serif;">
+        <!-- Page 1: Batting Order -->
+        <div>
+          <!-- Header -->
+          <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 15px;">
+            <h1 style="margin: 0; font-size: 28px; color: #333;">${gameInfo.teamName} vs ${gameInfo.opponent}</h1>
+            <p style="margin: 8px 0; font-size: 18px; color: #666;">
+              ${gameInfo.date} at ${formatTime12Hour(gameInfo.time)} - ${gameInfo.location}
+            </p>
+          </div>
+
+          <!-- Batting Order -->
+          <div style="margin-bottom: 30px;">
+            <h2 style="margin: 0 0 20px 0; font-size: 22px; color: #333; border-bottom: 2px solid #333; padding-bottom: 8px;">
+              BATTING ORDER
+            </h2>
+            <div style="display: grid; grid-template-columns: 1fr; gap: 8px;">
+              ${lineup.battingOrder.map((player, index) => `
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px; background: #f8f9fa; border: 1px solid #ddd; border-radius: 6px; font-size: 16px;">
+                  <span style="font-weight: bold; color: #333; font-size: 18px;">${index + 1}.</span>
+                  <span style="flex: 1; margin-left: 15px; font-weight: 500;">${formatPlayerName(player)}</span>
+                  <span style="color: #666; font-size: 16px; background: #e9ecef; padding: 4px 8px; border-radius: 4px;">#${player.number || 'N/A'}</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Page Break -->
+        <div class="page-break"></div>
+
+        <!-- Page 2: Fielding Assignments -->
+        <div>
+          <!-- Header -->
+          <div style="text-align: center; margin-bottom: 30px; border-bottom: 2px solid #333; padding-bottom: 15px;">
+            <h1 style="margin: 0; font-size: 28px; color: #333;">${gameInfo.teamName} vs ${gameInfo.opponent}</h1>
+            <p style="margin: 8px 0; font-size: 18px; color: #666;">
+              ${gameInfo.date} at ${formatTime12Hour(gameInfo.time)} - ${gameInfo.location}
+            </p>
+          </div>
+
+          <!-- Fielding Assignments -->
+          <div style="margin-bottom: 30px;">
+            <h2 style="margin: 0 0 20px 0; font-size: 22px; color: #333; border-bottom: 2px solid #333; padding-bottom: 8px;">
+              FIELDING ASSIGNMENTS
+            </h2>
+            <div style="overflow-x: auto;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 14px; border: 2px solid #333;">
+                <thead>
+                  <tr style="background: #333; color: white;">
+                    <th style="border: 1px solid #333; padding: 12px; text-align: left; font-weight: bold; font-size: 16px;">Player</th>
+                    ${innings.map(inning => `
+                      <th style="border: 1px solid #333; padding: 12px; text-align: center; font-weight: bold; font-size: 16px;">Inning ${inning}</th>
+                    `).join('')}
+                  </tr>
+                </thead>
+                <tbody>
+                  ${players.map(player => `
+                    <tr style="background: ${players.indexOf(player) % 2 === 0 ? '#f8f9fa' : 'white'};">
+                      <td style="border: 1px solid #333; padding: 12px; font-weight: 600; font-size: 15px;">${formatPlayerName(player)}</td>
+                      ${innings.map(inning => `
+                        <td style="border: 1px solid #333; padding: 12px; text-align: center; font-size: 14px;">${getFieldingPosition(player.id, inning)}</td>
+                      `).join('')}
+                    </tr>
+                  `).join('')}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 30px; padding-top: 15px; border-top: 1px solid #ccc; color: #666; font-size: 12px;">
+          Generated by Softball Lineup Generator
+        </div>
+      </div>
+    `;
   };
 
   const handlePrint = () => {
     try {
-      // Hide elements that shouldn't be printed
-      const style = document.createElement('style');
-      style.id = 'print-style';
-      style.innerHTML = `
-        @media print {
-          .header, .top-navigation, .status-bar .action-buttons { display: none !important; }
-          .main-content { grid-template-columns: 1fr !important; gap: 0 !important; }
-        }
-      `;
-      document.head.appendChild(style);
+      // Check if we have the required data
+      if (!lineup || !lineup.battingOrder || lineup.battingOrder.length === 0) {
+        alert('No lineup data available to print. Please create a lineup first.');
+        return;
+      }
+
+      // Generate PDF and open it in a new window for printing
+      const config = loadConfig() || {};
+      const gameInfo = {
+        teamName: config.teamName || 'Team',
+        opponent: config.opponent || 'Opponent',
+        date: config.date || new Date().toLocaleDateString(),
+        time: config.time || 'TBD',
+        location: config.field || 'TBD',
+        isHome: true
+      };
+
+      // Generate the PDF content
+      const pdfContent = generatePDFContent(lineup, fieldingAssignments, players, gameInfo);
       
-      window.print();
+      // Create a new window for printing
+      const printWindow = window.open('', '_blank', 'width=800,height=600');
       
-      // Clean up
-      setTimeout(() => {
-        const printStyle = document.getElementById('print-style');
-        if (printStyle) printStyle.remove();
-      }, 1000);
+      if (!printWindow) {
+        alert('Please allow popups for this site to enable printing.');
+        return;
+      }
+
+      // Write the content to the new window
+      printWindow.document.write(`
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Lineup - ${gameInfo.teamName} vs ${gameInfo.opponent}</title>
+          <style>
+            body {
+              margin: 0;
+              padding: 20px;
+              font-family: Arial, sans-serif;
+              background: white;
+            }
+            @media print {
+              body { margin: 0; padding: 0.5in; }
+            }
+          </style>
+        </head>
+        <body>
+          ${pdfContent}
+        </body>
+        </html>
+      `);
+      
+      printWindow.document.close();
+      
+      // Wait for content to load, then print
+      printWindow.onload = () => {
+        setTimeout(() => {
+          printWindow.print();
+          printWindow.close();
+        }, 500);
+      };
+      
     } catch (error) {
       console.error('Print failed:', error);
-      alert('Print failed. Please try again.');
+      alert(`Print failed: ${error.message}. Please try again.`);
     }
   };
 
@@ -496,7 +649,19 @@ function App() {
       // Load lineup
       if (orderData.battingOrder) {
         const newLineup = new Lineup(orderData.players || players);
-        newLineup.battingOrder = orderData.battingOrder;
+        // Convert batting order data to Player objects
+        const battingOrderPlayers = orderData.battingOrder.map(playerData => {
+          if (typeof playerData === 'object' && playerData.id) {
+            // If it's already a Player object, return it
+            return playerData;
+          } else if (typeof playerData === 'string') {
+            // If it's a player ID, find the player
+            return (orderData.players || players).find(p => p.id === playerData);
+          }
+          return null;
+        }).filter(Boolean);
+        
+        newLineup.battingOrder = battingOrderPlayers;
         setLineup(newLineup);
       }
       
@@ -553,8 +718,6 @@ function App() {
         lineup={lineup} 
         onExportPDF={handleExportPDF}
         onExportCSV={handleExportCSV}
-        onExportPNG={handleExportPNG}
-        onPrint={handlePrint}
         onManageBattingOrders={() => setShowBattingOrderManager(true)}
         lastSaved={lastSaved}
       />

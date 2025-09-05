@@ -110,33 +110,31 @@ const RosterManagement = ({ players, onAddPlayer, onUpdatePlayer, onRemovePlayer
       <Header currentView={currentView} onViewChange={onViewChange} />
 
       <div className="roster-content">
-        <div className="roster-header">
-          <div className="roster-title-section">
-            <h2>Roster Management</h2>
-            <div className="roster-actions">
-              <button 
-                className="btn btn-secondary"
-                onClick={onExportRoster}
-                title="Export roster to share with other coaches"
-              >
-                👥 Export Roster
-              </button>
-              <label className="btn btn-secondary" title="Import roster from another coach">
-                📥 Import Roster
-                <input
-                  type="file"
-                  accept=".json"
-                  onChange={onImportRoster}
-                  style={{ display: 'none' }}
-                />
-              </label>
-              <button 
-                className="btn btn-primary"
-                onClick={() => setShowAddForm(true)}
-              >
-                + Add Player
-              </button>
-            </div>
+        <div className="panel-header">
+          <h2>Roster Management</h2>
+          <div className="roster-actions">
+            <button 
+              className="btn btn-secondary"
+              onClick={onExportRoster}
+              title="Export roster to share with other coaches"
+            >
+              👥 Export Roster
+            </button>
+            <label className="btn btn-secondary" title="Import roster from another coach">
+              📥 Import Roster
+              <input
+                type="file"
+                accept=".json"
+                onChange={onImportRoster}
+                style={{ display: 'none' }}
+              />
+            </label>
+            <button 
+              className="btn btn-primary"
+              onClick={() => setShowAddForm(true)}
+            >
+              + Add Player
+            </button>
           </div>
         </div>
 

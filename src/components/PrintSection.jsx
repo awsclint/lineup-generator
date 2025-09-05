@@ -1,5 +1,5 @@
 import React from 'react';
-import { exportToPDF, exportToCSV, exportToPNG, printLineup } from '../utils/exportUtils.js';
+import { exportToPDF, exportToCSV, printLineup } from '../utils/exportUtils.js';
 
 const PrintSection = ({ lineup, config }) => {
   const handleExportPDF = () => {
@@ -10,9 +10,6 @@ const PrintSection = ({ lineup, config }) => {
     exportToCSV(lineup, config);
   };
 
-  const handleExportPNG = () => {
-    exportToPNG('lineup-board', `${config.teamName}_vs_${config.opponent}_${config.date}.png`);
-  };
 
   const handlePrint = () => {
     printLineup();
@@ -39,13 +36,6 @@ const PrintSection = ({ lineup, config }) => {
           📊 Export CSV
         </button>
         
-        <button
-          className="btn btn-secondary"
-          onClick={handleExportPNG}
-          title="Export current view as PNG image"
-        >
-          🖼️ Export PNG
-        </button>
         
         <button
           className="btn btn-primary"
@@ -68,7 +58,6 @@ const PrintSection = ({ lineup, config }) => {
         <ul style={{ margin: 0, paddingLeft: '1.5rem', color: 'var(--gray-600)' }}>
           <li><strong>PDF:</strong> Complete lineup sheet with batting order, fielding assignments, and pitching summary</li>
           <li><strong>CSV:</strong> Data export for spreadsheet analysis and record keeping</li>
-          <li><strong>PNG:</strong> Screenshot of the current lineup board</li>
           <li><strong>Print:</strong> Browser print dialog for physical copies</li>
         </ul>
       </div>

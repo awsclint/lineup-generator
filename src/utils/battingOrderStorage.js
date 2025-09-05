@@ -68,12 +68,54 @@ export const loadBattingOrder = (orderId) => {
     const players = order.players.map(playerData => Player.fromJSON(playerData));
     const config = order.config ? new GameConfig(order.config) : null;
     
+    // Convert batting order data back to Player objects
+    const battingOrder = order.battingOrder.map(playerData => {
+      if (typeof playerData === 'object' && playerData.id) {
+        return Player.fromJSON(playerData);
+      } else if (typeof playerData === 'string') {
+        // If it's a player ID, find the player in the players array
+        return players.find(p => p.id === playerData);
+      }
+      return null;
+    }).filter(Boolean);
+    
+    // Convert fielding assignments back to Player objects
+    const fieldingAssignments = {};
+    if (order.fieldingAssignments) {
+      Object.keys(order.fieldingAssignments).forEach(inning => {
+        fieldingAssignments[inning] = {};
+        Object.keys(order.fieldingAssignments[inning]).forEach(position => {
+          const playerRef = order.fieldingAssignments[inning][position];
+          if (position === 'Bench' && Array.isArray(playerRef)) {
+            // Handle bench array
+            fieldingAssignments[inning][position] = playerRef.map(playerData => {
+              if (typeof playerData === 'object' && playerData.id) {
+                return Player.fromJSON(playerData);
+              } else if (typeof playerData === 'string') {
+                return players.find(p => p.id === playerData);
+              }
+              return null;
+            }).filter(Boolean);
+          } else if (playerRef) {
+            // Handle individual position
+            if (typeof playerRef === 'object' && playerRef.id) {
+              fieldingAssignments[inning][position] = Player.fromJSON(playerRef);
+            } else if (typeof playerRef === 'string') {
+              fieldingAssignments[inning][position] = players.find(p => p.id === playerRef);
+            }
+          } else {
+            fieldingAssignments[inning][position] = null;
+          }
+        });
+      });
+    }
+    
     return {
       success: true,
       data: {
         name: order.name,
-        battingOrder: order.battingOrder,
-        fieldingAssignments: order.fieldingAssignments,
+        battingOrder: battingOrder,
+        fieldingAssignments: fieldingAssignments,
         players: players,
         config: config,
         createdAt: order.createdAt,

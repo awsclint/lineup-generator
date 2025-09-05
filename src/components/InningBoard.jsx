@@ -1,8 +1,67 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { loadConfig, saveConfig } from '../utils/storageUtils.js';
+import { GameConfig } from '../models/GameConfig.js';
 
 const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance, onToggleLock, players }) => {
   const [draggedPlayer, setDraggedPlayer] = useState(null);
   const [dragOverPosition, setDragOverPosition] = useState(null);
+  const [gameInfo, setGameInfo] = useState({
+    teamName: '',
+    opponent: '',
+    date: '',
+    time: '',
+    location: ''
+  });
+  const [showGameInfo, setShowGameInfo] = useState(false);
+
+  // Convert 24-hour time to 12-hour format
+  const formatTime12Hour = (time24) => {
+    if (!time24 || time24 === 'TBD') return time24;
+    
+    const [hours, minutes] = time24.split(':');
+    const hour = parseInt(hours, 10);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const hour12 = hour === 0 ? 12 : hour > 12 ? hour - 12 : hour;
+    
+    return `${hour12}:${minutes} ${ampm}`;
+  };
+
+  // Load game info on component mount
+  useEffect(() => {
+    const config = loadConfig();
+    if (config) {
+      setGameInfo({
+        teamName: config.teamName || '',
+        opponent: config.opponent || '',
+        date: config.date || '',
+        time: config.time || '',
+        location: config.field || ''
+      });
+    }
+  }, []);
+
+  // Save game info when it changes
+  const handleGameInfoChange = (field, value) => {
+    const newGameInfo = { ...gameInfo, [field]: value };
+    setGameInfo(newGameInfo);
+    
+    // Save to localStorage using GameConfig
+    const existingConfig = loadConfig();
+    const configData = existingConfig ? existingConfig.toJSON() : {};
+    
+    // Map the fields correctly for GameConfig
+    const updatedConfigData = {
+      ...configData,
+      teamName: newGameInfo.teamName,
+      opponent: newGameInfo.opponent,
+      date: newGameInfo.date,
+      time: newGameInfo.time,
+      field: newGameInfo.location // Map location to field
+    };
+    
+    const gameConfig = new GameConfig(updatedConfigData);
+    saveConfig(gameConfig);
+  };
 
   // Helper function to get display name
   const getDisplayName = (player) => {
@@ -123,7 +182,70 @@ const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance,
 
   return (
     <div className="panel">
-      <h2>Fielding Assignments</h2>
+      <div className="panel-header">
+        <h2>Fielding Assignments</h2>
+        <button 
+          className="btn btn-secondary btn-sm"
+          onClick={() => setShowGameInfo(!showGameInfo)}
+        >
+          {showGameInfo ? 'Hide' : 'Edit'} Game Info
+        </button>
+      </div>
+
+      {/* Game Info Section */}
+      {showGameInfo && (
+        <div className="game-info-section">
+          <h3>Game Information</h3>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Team Name:</label>
+              <input
+                type="text"
+                value={gameInfo.teamName}
+                onChange={(e) => handleGameInfoChange('teamName', e.target.value)}
+                placeholder="Enter team name"
+              />
+            </div>
+            <div className="form-group">
+              <label>Opponent:</label>
+              <input
+                type="text"
+                value={gameInfo.opponent}
+                onChange={(e) => handleGameInfoChange('opponent', e.target.value)}
+                placeholder="Enter opponent name"
+              />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group">
+              <label>Date:</label>
+              <input
+                type="date"
+                value={gameInfo.date}
+                onChange={(e) => handleGameInfoChange('date', e.target.value)}
+              />
+            </div>
+            <div className="form-group">
+              <label>Time:</label>
+              <input
+                type="time"
+                value={gameInfo.time}
+                onChange={(e) => handleGameInfoChange('time', e.target.value)}
+                style={{ fontFamily: 'monospace' }}
+              />
+            </div>
+            <div className="form-group">
+              <label>Location:</label>
+              <input
+                type="text"
+                value={gameInfo.location}
+                onChange={(e) => handleGameInfoChange('location', e.target.value)}
+                placeholder="Enter field location"
+              />
+            </div>
+          </div>
+        </div>
+      )}
       
       <div className="inning-board">
         <div className="inning-grid">

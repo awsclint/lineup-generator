@@ -1666,22 +1666,107 @@
   overflow: hidden;
 }
 
-.panel h2 {
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 2rem;
   background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-600) 100%);
-  color: white;
-  margin: 0;
-  padding: 24px 32px;
-  font-size: 24px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3);
+  border-radius: 12px 12px 0 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
 }
 
-/* Panel headers with white text for better readability - more specific to override index.css */
-.panel h2 {
-  color: white !important;
+.panel-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+  pointer-events: none;
 }
+
+.panel-header h2 {
+  margin: 0 !important;
+  color: white !important;
+  font-size: 1.75rem !important;
+  font-weight: 700 !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+  letter-spacing: -0.5px !important;
+  position: relative;
+  z-index: 1;
+  background: none !important;
+  padding: 0 !important;
+  text-transform: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  border-bottom: none !important;
+}
+
+.panel-header .btn {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.panel-header .btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Roster actions within panel header */
+.panel-header .roster-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.panel-header .roster-actions .btn {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.panel-header .roster-actions .btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Game Info Section */
+.game-info-section {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0 1.5rem 1.5rem 1.5rem;
+}
+
+.game-info-section h3 {
+  margin: 0 0 1rem 0;
+  color: var(--gray-800);
+  font-size: 16px;
+  font-weight: 600;
+}
+
+/* Removed conflicting panel h2 styles - now handled by .panel-header h2 */
 
 /* Status Bar Styles */
 .status-bar {
@@ -1745,6 +1830,10 @@
   display: flex;
   gap: 12px;
   align-items: center;
+}
+
+.action-buttons.centered {
+  justify-content: center;
 }
 
 .action-buttons .btn {

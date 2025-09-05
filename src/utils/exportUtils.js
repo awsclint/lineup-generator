@@ -1,6 +1,5 @@
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
-import html2canvas from 'html2canvas';
 
 export const exportToPDF = (lineup, config) => {
   const doc = new jsPDF();
@@ -126,28 +125,6 @@ export const exportToCSV = (lineup, config) => {
   window.URL.revokeObjectURL(url);
 };
 
-export const exportToPNG = async (elementId, filename) => {
-  try {
-    const element = document.getElementById(elementId);
-    if (!element) {
-      console.error('Element not found for PNG export');
-      return;
-    }
-    
-    const canvas = await html2canvas(element, {
-      scale: 2,
-      useCORS: true,
-      allowTaint: true
-    });
-    
-    const link = document.createElement('a');
-    link.download = filename || 'lineup.png';
-    link.href = canvas.toDataURL();
-    link.click();
-  } catch (error) {
-    console.error('Error exporting to PNG:', error);
-  }
-};
 
 export const printLineup = () => {
   window.print();

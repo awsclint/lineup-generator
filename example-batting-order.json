@@ -1,0 +1,503 @@
+{
+  "name": "Thunder vs Lightning - Championship Game",
+  "battingOrder": [
+    {
+      "id": "player-1",
+      "firstName": "Sarah",
+      "lastName": "Johnson",
+      "number": 12,
+      "eligible": {
+        "P": true,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-2",
+      "firstName": "Mike",
+      "lastName": "Rodriguez",
+      "number": 7,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-3",
+      "firstName": "Emma",
+      "lastName": "Williams",
+      "number": 23,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": false,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-4",
+      "firstName": "David",
+      "lastName": "Brown",
+      "number": 5,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-5",
+      "firstName": "Lisa",
+      "lastName": "Garcia",
+      "number": 18,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-6",
+      "firstName": "Chris",
+      "lastName": "Davis",
+      "number": 3,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-7",
+      "firstName": "Jessica",
+      "lastName": "Martinez",
+      "number": 9,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-8",
+      "firstName": "Alex",
+      "lastName": "Wilson",
+      "number": 15,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-9",
+      "firstName": "Maria",
+      "lastName": "Anderson",
+      "number": 21,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-10",
+      "firstName": "Ryan",
+      "lastName": "Taylor",
+      "number": 4,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-11",
+      "firstName": "Ashley",
+      "lastName": "Thomas",
+      "number": 14,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-12",
+      "firstName": "Kevin",
+      "lastName": "Jackson",
+      "number": 8,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    }
+  ],
+  "fieldingAssignments": {
+    "1": {
+      "P": "player-1",
+      "C": "player-3",
+      "1B": "player-4",
+      "2B": "player-2",
+      "3B": "player-5",
+      "SS": "player-6",
+      "LF": "player-7",
+      "CF": "player-8",
+      "RF": "player-9"
+    },
+    "2": {
+      "P": "player-2",
+      "C": "player-5",
+      "1B": "player-1",
+      "2B": "player-4",
+      "3B": "player-6",
+      "SS": "player-8",
+      "LF": "player-9",
+      "CF": "player-7",
+      "RF": "player-10"
+    },
+    "3": {
+      "P": "player-4",
+      "C": "player-7",
+      "1B": "player-2",
+      "2B": "player-6",
+      "3B": "player-8",
+      "SS": "player-1",
+      "LF": "player-10",
+      "CF": "player-9",
+      "RF": "player-11"
+    },
+    "4": {
+      "P": "player-6",
+      "C": "player-9",
+      "1B": "player-5",
+      "2B": "player-8",
+      "3B": "player-1",
+      "SS": "player-2",
+      "LF": "player-11",
+      "CF": "player-10",
+      "RF": "player-12"
+    },
+    "5": {
+      "P": "player-8",
+      "C": "player-11",
+      "1B": "player-6",
+      "2B": "player-1",
+      "3B": "player-2",
+      "SS": "player-4",
+      "LF": "player-12",
+      "CF": "player-11",
+      "RF": "player-7"
+    },
+    "6": {
+      "P": "player-10",
+      "C": "player-12",
+      "1B": "player-8",
+      "2B": "player-4",
+      "3B": "player-4",
+      "SS": "player-5",
+      "LF": "player-7",
+      "CF": "player-12",
+      "RF": "player-9"
+    }
+  },
+  "players": [
+    {
+      "id": "player-1",
+      "firstName": "Sarah",
+      "lastName": "Johnson",
+      "number": 12,
+      "eligible": {
+        "P": true,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-2",
+      "firstName": "Mike",
+      "lastName": "Rodriguez",
+      "number": 7,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-3",
+      "firstName": "Emma",
+      "lastName": "Williams",
+      "number": 23,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": false,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-4",
+      "firstName": "David",
+      "lastName": "Brown",
+      "number": 5,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-5",
+      "firstName": "Lisa",
+      "lastName": "Garcia",
+      "number": 18,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-6",
+      "firstName": "Chris",
+      "lastName": "Davis",
+      "number": 3,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-7",
+      "firstName": "Jessica",
+      "lastName": "Martinez",
+      "number": 9,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-8",
+      "firstName": "Alex",
+      "lastName": "Wilson",
+      "number": 15,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-9",
+      "firstName": "Maria",
+      "lastName": "Anderson",
+      "number": 21,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-10",
+      "firstName": "Ryan",
+      "lastName": "Taylor",
+      "number": 4,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-11",
+      "firstName": "Ashley",
+      "lastName": "Thomas",
+      "number": 14,
+      "eligible": {
+        "P": false,
+        "C": true,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    },
+    {
+      "id": "player-12",
+      "firstName": "Kevin",
+      "lastName": "Jackson",
+      "number": 8,
+      "eligible": {
+        "P": true,
+        "C": false,
+        "1B": true,
+        "2B": true,
+        "3B": true,
+        "SS": true,
+        "LF": true,
+        "CF": true,
+        "RF": true
+      }
+    }
+  ],
+  "config": {
+    "teamName": "Thunder",
+    "opponent": "Lightning",
+    "date": "2024-12-25",
+    "time": "19:00",
+    "field": "Championship Field",
+    "isHome": true,
+    "innings": 6,
+    "enforcePitcherRules": true,
+    "minFieldInnings": 3,
+    "avoidRepeatPositionLimit": 2,
+    "avoidBackToBackBench": true,
+    "balancePlayingTime": true,
+    "maxCatcherInnings": 4,
+    "maxShortstopInnings": 4,
+    "maxFirstBaseInnings": 4
+  },
+  "exportDate": "2024-12-25T10:30:00.000Z",
+  "version": "1.0",
+  "app": "Softball Lineup Generator"
+}
