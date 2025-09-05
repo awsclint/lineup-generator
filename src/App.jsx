@@ -172,6 +172,24 @@ function App() {
     if (players && players.length > 0) {
       const newLineup = new Lineup(players);
       setLineup(newLineup);
+      
+      // Reset fielding assignments when lineup is regenerated
+      const newAssignments = {};
+      for (let inning = 1; inning <= 6; inning++) {
+        newAssignments[inning] = {
+          P: null,
+          C: null,
+          '1B': null,
+          '2B': null,
+          '3B': null,
+          SS: null,
+          LF: null,
+          CF: null,
+          RF: null,
+          Bench: []
+        };
+      }
+      setFieldingAssignments(newAssignments);
     }
   }, [players]);
 

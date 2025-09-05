@@ -151,7 +151,7 @@ const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance,
       return;
     }
     
-    const player = players.find(p => p.id === parseInt(playerId));
+    const player = players.find(p => p.id === playerId);
     if (player) {
       console.log('Calling onUpdateLineup with:', { inning, position, player });
       onUpdateLineup(inning, position, player);
