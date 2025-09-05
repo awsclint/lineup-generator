@@ -51,11 +51,6 @@ const StatusBar = ({ lineup, onExportPDF, onExportCSV, onExportPNG, onPrint, onM
             <strong>Warnings:</strong> {warnings.join(', ')}
           </div>
         )}
-        {validationErrors.length === 0 && warnings.length === 0 && (
-          <div className="status-success">
-            Lineup is valid and ready
-          </div>
-        )}
         {lastSaved && (
           <div className="status-info">
             💾 Last saved: {lastSaved.toLocaleTimeString()}
