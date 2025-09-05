@@ -31,11 +31,120 @@
 .dragging {
   opacity: 0.5;
   transform: rotate(5deg);
+  z-index: 1000;
 }
 
 .drag-over {
-  background-color: var(--primary-color) !important;
-  color: white !important;
+  background-color: var(--primary-50) !important;
+  border: 2px dashed var(--primary-color) !important;
+  transform: scale(1.02);
+}
+
+/* Batting order drag preview */
+.batting-order-insert-preview {
+  display: flex;
+  align-items: center;
+  padding: 8px 0;
+  margin: 4px 0;
+  position: relative;
+}
+
+.insert-line {
+  flex: 1;
+  height: 2px;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-600));
+  border-radius: 1px;
+  margin-right: 12px;
+}
+
+.insert-text {
+  background: var(--primary-color);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.batting-order-item.dragging {
+  opacity: 0.3;
+  transform: rotate(2deg);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.batting-order-item.drag-over {
+  background-color: var(--primary-50);
+  border: 2px dashed var(--primary-color);
+  transform: scale(1.01);
+  transition: all 0.2s ease;
+}
+
+/* Inning board drag preview */
+.position-row.drag-over {
+  background-color: var(--primary-50) !important;
+  border: 2px dashed var(--primary-color) !important;
+  transform: scale(1.02);
+  transition: all 0.2s ease;
+}
+
+.position-row.drop-invalid {
+  background-color: #fef2f2 !important;
+  border: 2px dashed #dc2626 !important;
+  opacity: 0.7;
+}
+
+.drop-preview {
+  position: absolute;
+  top: -8px;
+  right: 0;
+  z-index: 10;
+}
+
+.drop-preview-text {
+  background: var(--primary-color);
+  color: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 10px;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.position-row.drop-invalid .drop-preview-text {
+  background: #dc2626;
+}
+
+.assigned-player-display {
+  cursor: grab;
+  transition: all 0.2s ease;
+}
+
+.assigned-player-display:hover {
+  background-color: var(--gray-50);
+  transform: scale(1.02);
+}
+
+.assigned-player-display:active {
+  cursor: grabbing;
+}
+
+.bench-player {
+  cursor: grab;
+  transition: all 0.2s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin: 2px 0;
+}
+
+.bench-player:hover {
+  background-color: var(--gray-100);
+  transform: scale(1.02);
+}
+
+.bench-player:active {
+  cursor: grabbing;
 }
 
 /* Inning board specific styles */
