@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Softball Lineup Generator - Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; border-radius: 5px; }
+        .success { background-color: #d4edda; border-color: #c3e6cb; }
+        .error { background-color: #f8d7da; border-color: #f5c6cb; }
+        button { padding: 10px 15px; margin: 5px; background: #007bff; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        button:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <h1>⚾ Softball Lineup Generator - Core Functionality Test</h1>
+    
+    <div class="test-section">
+        <h2>Test Results</h2>
+        <div id="test-results"></div>
+    </div>
+
+    <div class="test-section">
+        <h2>Manual Tests</h2>
+        <p>Open the main application at <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> to test:</p>
+        <ul>
+            <li>✅ Add/remove players</li>
+            <li>✅ Set position eligibility</li>
+            <li>✅ Configure game settings</li>
+            <li>✅ Generate lineups</li>
+            <li>✅ Drag & drop editing</li>
+            <li>✅ Export to PDF/CSV</li>
+            <li>✅ Print functionality</li>
+        </ul>
+    </div>
+
+    <script type="module">
+        // Test the core models
+        async function testCoreFunctionality() {
+            const results = [];
+            
+            try {
+                // Test Player model
+                const { Player } = await import('./src/models/Player.js');
+                const player = new Player({
+                    firstName: 'Test',
+                    lastName: 'Player',
+                    number: 42,
+                    eligible: { P: true, C: false, IF: true, OF: true }
+                });
+                
+                if (player.fullName === 'Test Player' && player.number === 42) {
+                    results.push('✅ Player model: PASSED');
+                } else {
+                    results.push('❌ Player model: FAILED');
+                }
+                
+                // Test GameConfig model
+                const { GameConfig } = await import('./src/models/GameConfig.js');
+                const config = new GameConfig({
+                    teamName: 'Test Team',
+                    opponent: 'Test Opponent'
+                });
+                
+                if (config.teamName === 'Test Team' && config.innings === 6) {
+                    results.push('✅ GameConfig model: PASSED');
+                } else {
+                    results.push('❌ GameConfig model: FAILED');
+                }
+                
+                // Test Lineup model
+                const { Lineup } = await import('./src/models/Lineup.js');
+                const lineup = new Lineup([player], config);
+                
+                if (lineup.players.length === 1 && lineup.battingOrder.length === 1) {
+                    results.push('✅ Lineup model: PASSED');
+                } else {
+                    results.push('❌ Lineup model: FAILED');
+                }
+                
+                // Test constraint validation
+                const errors = lineup.getValidationErrors();
+                const warnings = lineup.getValidationWarnings();
+                
+                if (Array.isArray(errors) && Array.isArray(warnings)) {
+                    results.push('✅ Validation system: PASSED');
+                } else {
+                    results.push('❌ Validation system: FAILED');
+                }
+                
+            } catch (error) {
+                results.push(`❌ Test failed with error: ${error.message}`);
+            }
+            
+            // Display results
+            document.getElementById('test-results').innerHTML = results.map(result => 
+                `<div>${result}</div>`
+            ).join('');
+        }
+        
+        // Run tests when page loads
+        testCoreFunctionality();
+    </script>
+</body>
+</html>

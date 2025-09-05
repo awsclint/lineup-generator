@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Drag & Drop Test</title>
+    <style>
+        .draggable { 
+            padding: 10px; 
+            margin: 5px; 
+            background: #e0e0e0; 
+            border: 1px solid #ccc;
+            cursor: move;
+        }
+        .droppable { 
+            padding: 20px; 
+            margin: 10px; 
+            background: #f0f0f0; 
+            border: 2px dashed #999;
+            min-height: 100px;
+        }
+        .dragging { opacity: 0.5; }
+    </style>
+</head>
+<body>
+    <h1>Simple Drag & Drop Test</h1>
+    
+    <div class="draggable" draggable="true" data-id="player1">Player 1</div>
+    <div class="draggable" draggable="true" data-id="player2">Player 2</div>
+    <div class="draggable" draggable="true" data-id="player3">Player 3</div>
+    
+    <div class="droppable" data-position="pitcher">Pitcher Position</div>
+    <div class="droppable" data-position="catcher">Catcher Position</div>
+    <div class="droppable" data-position="first">First Base</div>
+    
+    <script>
+        // Simple native HTML5 drag and drop
+        document.querySelectorAll('.draggable').forEach(item => {
+            item.addEventListener('dragstart', handleDragStart);
+            item.addEventListener('dragend', handleDragEnd);
+        });
+        
+        document.querySelectorAll('.droppable').forEach(item => {
+            item.addEventListener('dragover', handleDragOver);
+            item.addEventListener('drop', handleDrop);
+        });
+        
+        function handleDragStart(e) {
+            e.target.classList.add('dragging');
+            e.dataTransfer.setData('text/plain', e.target.dataset.id);
+        }
+        
+        function handleDragEnd(e) {
+            e.target.classList.remove('dragging');
+        }
+        
+        function handleDragOver(e) {
+            e.preventDefault();
+        }
+        
+        function handleDrop(e) {
+            e.preventDefault();
+            const playerId = e.dataTransfer.getData('text/plain');
+            const player = document.querySelector(`[data-id="${playerId}"]`);
+            const position = e.target.dataset.position;
+            
+            console.log(`Dropped player ${playerId} at position ${position}`);
+            e.target.innerHTML = `Position: ${position}<br>Player: ${playerId}`;
+        }
+    </script>
+</body>
+</html>
