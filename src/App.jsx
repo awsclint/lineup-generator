@@ -167,6 +167,14 @@ function App() {
     }
   }, [lineup]);
 
+  // Regenerate lineup when players change
+  useEffect(() => {
+    if (players && players.length > 0) {
+      const newLineup = new Lineup(players);
+      setLineup(newLineup);
+    }
+  }, [players]);
+
   // State for showing save status
   const [lastSaved, setLastSaved] = useState(null);
   
