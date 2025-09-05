@@ -86,6 +86,15 @@ const RosterManagement = ({ players, onAddPlayer, onUpdatePlayer, onRemovePlayer
     onUpdatePlayer(updatedPlayer);
   };
 
+  const toggleInactiveStatus = (playerId) => {
+    const player = players.find(p => p.id === playerId);
+    const updatedPlayer = {
+      ...player,
+      inactive: !player.inactive
+    };
+    onUpdatePlayer(updatedPlayer);
+  };
+
   const getPositionBadges = (player) => {
     const badges = [];
     if (player.eligible.P) badges.push({ label: 'P', className: 'badge-pitcher' });
@@ -339,6 +348,15 @@ const RosterManagement = ({ players, onAddPlayer, onUpdatePlayer, onRemovePlayer
               {player.number && (
                 <div className="player-number">#{player.number}</div>
               )}
+            </div>
+            
+            <div className="player-status">
+              <div 
+                className={`status-toggle ${player.inactive ? 'inactive' : 'active'}`}
+                onClick={() => toggleInactiveStatus(player.id)}
+              >
+                {player.inactive ? '❌ INACTIVE' : '✅ ACTIVE'}
+              </div>
             </div>
             
             <div className="player-positions">

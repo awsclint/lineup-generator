@@ -17,15 +17,16 @@
         "CF": true,
         "RF": true
       },
-      "availability": {
-        "startInning": 1,
-        "endInning": 6
-      },
-      "pitchingStats": {
-        "totalPitched": 0,
-        "currentConsecutivePitched": 0,
-        "lastPitchedInning": null
-      }
+              "availability": {
+          "startInning": 1,
+          "endInning": 6
+        },
+        "inactive": false,
+        "pitchingStats": {
+          "totalPitched": 0,
+          "currentConsecutivePitched": 0,
+          "lastPitchedInning": null
+        }
     },
     {
       "id": "player-2",
@@ -43,15 +44,16 @@
         "CF": true,
         "RF": true
       },
-      "availability": {
-        "startInning": 1,
-        "endInning": 6
-      },
-      "pitchingStats": {
-        "totalPitched": 0,
-        "currentConsecutivePitched": 0,
-        "lastPitchedInning": null
-      }
+              "availability": {
+          "startInning": 1,
+          "endInning": 6
+        },
+        "inactive": false,
+        "pitchingStats": {
+          "totalPitched": 0,
+          "currentConsecutivePitched": 0,
+          "lastPitchedInning": null
+        }
     },
     {
       "id": "player-3",
@@ -69,15 +71,16 @@
         "CF": true,
         "RF": true
       },
-      "availability": {
-        "startInning": 1,
-        "endInning": 6
-      },
-      "pitchingStats": {
-        "totalPitched": 0,
-        "currentConsecutivePitched": 0,
-        "lastPitchedInning": null
-      }
+              "availability": {
+          "startInning": 1,
+          "endInning": 6
+        },
+        "inactive": false,
+        "pitchingStats": {
+          "totalPitched": 0,
+          "currentConsecutivePitched": 0,
+          "lastPitchedInning": null
+        }
     },
     {
       "id": "player-4",
@@ -95,15 +98,16 @@
         "CF": true,
         "RF": true
       },
-      "availability": {
-        "startInning": 1,
-        "endInning": 6
-      },
-      "pitchingStats": {
-        "totalPitched": 0,
-        "currentConsecutivePitched": 0,
-        "lastPitchedInning": null
-      }
+              "availability": {
+          "startInning": 1,
+          "endInning": 6
+        },
+        "inactive": false,
+        "pitchingStats": {
+          "totalPitched": 0,
+          "currentConsecutivePitched": 0,
+          "lastPitchedInning": null
+        }
     },
     {
       "id": "player-5",
@@ -121,15 +125,16 @@
         "CF": true,
         "RF": true
       },
-      "availability": {
-        "startInning": 1,
-        "endInning": 6
-      },
-      "pitchingStats": {
-        "totalPitched": 0,
-        "currentConsecutivePitched": 0,
-        "lastPitchedInning": null
-      }
+              "availability": {
+          "startInning": 1,
+          "endInning": 6
+        },
+        "inactive": false,
+        "pitchingStats": {
+          "totalPitched": 0,
+          "currentConsecutivePitched": 0,
+          "lastPitchedInning": null
+        }
     },
     {
       "id": "player-6",
@@ -147,15 +152,16 @@
         "CF": true,
         "RF": true
       },
-      "availability": {
-        "startInning": 1,
-        "endInning": 6
-      },
-      "pitchingStats": {
-        "totalPitched": 0,
-        "currentConsecutivePitched": 0,
-        "lastPitchedInning": null
-      }
+              "availability": {
+          "startInning": 1,
+          "endInning": 6
+        },
+        "inactive": false,
+        "pitchingStats": {
+          "totalPitched": 0,
+          "currentConsecutivePitched": 0,
+          "lastPitchedInning": null
+        }
     },
     {
       "id": "player-7",
@@ -173,15 +179,16 @@
         "CF": true,
         "RF": true
       },
-      "availability": {
-        "startInning": 1,
-        "endInning": 6
-      },
-      "pitchingStats": {
-        "totalPitched": 0,
-        "currentConsecutivePitched": 0,
-        "lastPitchedInning": null
-      }
+              "availability": {
+          "startInning": 1,
+          "endInning": 6
+        },
+        "inactive": false,
+        "pitchingStats": {
+          "totalPitched": 0,
+          "currentConsecutivePitched": 0,
+          "lastPitchedInning": null
+        }
     },
     {
       "id": "player-8",
@@ -199,15 +206,16 @@
         "CF": true,
         "RF": true
       },
-      "availability": {
-        "startInning": 1,
-        "endInning": 6
-      },
-      "pitchingStats": {
-        "totalPitched": 0,
-        "currentConsecutivePitched": 0,
-        "lastPitchedInning": null
-      }
+              "availability": {
+          "startInning": 1,
+          "endInning": 6
+        },
+        "inactive": false,
+        "pitchingStats": {
+          "totalPitched": 0,
+          "currentConsecutivePitched": 0,
+          "lastPitchedInning": null
+        }
     },
     {
       "id": "player-9",
@@ -225,15 +233,16 @@
         "CF": true,
         "RF": true
       },
-      "availability": {
-        "startInning": 1,
-        "endInning": 6
-      },
-      "pitchingStats": {
-        "totalPitched": 0,
-        "currentConsecutivePitched": 0,
-        "lastPitchedInning": null
-      }
+              "availability": {
+          "startInning": 1,
+          "endInning": 6
+        },
+        "inactive": false,
+        "pitchingStats": {
+          "totalPitched": 0,
+          "currentConsecutivePitched": 0,
+          "lastPitchedInning": null
+        }
     },
     {
       "id": "player-10",
@@ -251,15 +260,16 @@
         "CF": true,
         "RF": true
       },
-      "availability": {
-        "startInning": 1,
-        "endInning": 6
-      },
-      "pitchingStats": {
-        "totalPitched": 0,
-        "currentConsecutivePitched": 0,
-        "lastPitchedInning": null
-      }
+              "availability": {
+          "startInning": 1,
+          "endInning": 6
+        },
+        "inactive": false,
+        "pitchingStats": {
+          "totalPitched": 0,
+          "currentConsecutivePitched": 0,
+          "lastPitchedInning": null
+        }
     },
     {
       "id": "player-11",
@@ -277,15 +287,16 @@
         "CF": true,
         "RF": true
       },
-      "availability": {
-        "startInning": 1,
-        "endInning": 6
-      },
-      "pitchingStats": {
-        "totalPitched": 0,
-        "currentConsecutivePitched": 0,
-        "lastPitchedInning": null
-      }
+              "availability": {
+          "startInning": 1,
+          "endInning": 6
+        },
+        "inactive": false,
+        "pitchingStats": {
+          "totalPitched": 0,
+          "currentConsecutivePitched": 0,
+          "lastPitchedInning": null
+        }
     },
     {
       "id": "player-12",
@@ -303,15 +314,16 @@
         "CF": true,
         "RF": true
       },
-      "availability": {
-        "startInning": 1,
-        "endInning": 6
-      },
-      "pitchingStats": {
-        "totalPitched": 0,
-        "currentConsecutivePitched": 0,
-        "lastPitchedInning": null
-      }
+              "availability": {
+          "startInning": 1,
+          "endInning": 6
+        },
+        "inactive": false,
+        "pitchingStats": {
+          "totalPitched": 0,
+          "currentConsecutivePitched": 0,
+          "lastPitchedInning": null
+        }
     }
   ]
 }

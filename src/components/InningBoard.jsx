@@ -66,7 +66,8 @@ const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance,
   // Helper function to get display name
   const getDisplayName = (player) => {
     if (!player) return 'Unknown';
-    return `${player.firstName || 'Unknown'} ${player.lastName ? player.lastName.charAt(0) + '.' : ''}`;
+    const name = `${player.firstName || 'Unknown'} ${player.lastName ? player.lastName.charAt(0) + '.' : ''}`;
+    return player.inactive ? `❌ ${name}` : name;
   };
 
   // Helper function to get position name
@@ -102,6 +103,9 @@ const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance,
     }
     
     return players.filter(player => {
+      // Player must be available (not out)
+      if (!player.isAvailable()) return false;
+      
       // Check if player is eligible for this position
       let isEligible = false;
       

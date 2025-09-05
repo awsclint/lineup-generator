@@ -132,7 +132,8 @@ const BattingOrderPanel = ({ lineup, onReorder }) => {
   };
 
   const getDisplayName = (player) => {
-    return `${player.firstName} ${player.lastName ? player.lastName.charAt(0) + '.' : ''}`;
+    const name = `${player.firstName} ${player.lastName ? player.lastName.charAt(0) + '.' : ''}`;
+    return player.inactive ? `❌ ${name}` : name;
   };
 
   return (

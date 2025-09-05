@@ -675,6 +675,43 @@
   margin-bottom: 1rem;
 }
 
+.player-status {
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: center;
+}
+
+.status-toggle {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: all 0.2s;
+  background: var(--gray-50);
+  border: 2px solid var(--gray-200);
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-align: center;
+  user-select: none;
+}
+
+.status-toggle:hover {
+  background: var(--gray-100);
+  border-color: var(--gray-300);
+  transform: translateY(-1px);
+}
+
+.status-toggle.active {
+  color: var(--success-color);
+  background: #f0fdf4;
+  border-color: var(--success-color);
+}
+
+.status-toggle.inactive {
+  color: var(--danger-color);
+  background: #fef2f2;
+  border-color: var(--danger-color);
+}
+
 .player-name {
   font-size: 1.25rem;
   font-weight: 600;

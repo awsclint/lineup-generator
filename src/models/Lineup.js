@@ -40,8 +40,8 @@ export class Lineup {
   generateBattingOrder() {
     // Shuffle available players for batting order
     const availablePlayers = this.players.filter(p => 
-      p.isAvailableForInning(1) || p.isAvailableForInning(2) || p.isAvailableForInning(3) || 
-      p.isAvailableForInning(4) || p.isAvailableForInning(5) || p.isAvailableForInning(6)
+      p.isAvailable() && (p.isAvailableForInning(1) || p.isAvailableForInning(2) || p.isAvailableForInning(3) || 
+      p.isAvailableForInning(4) || p.isAvailableForInning(5) || p.isAvailableForInning(6))
     );
     
     this.battingOrder = [...availablePlayers].sort(() => Math.random() - 0.5);
@@ -55,7 +55,7 @@ export class Lineup {
   }
 
   assignInningFielding(inning) {
-    const availablePlayers = this.players.filter(p => p.isAvailableForInning(inning));
+    const availablePlayers = this.players.filter(p => p.isAvailable() && p.isAvailableForInning(inning));
     const positions = ['P', 'C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF'];
     const assignedPlayers = new Set();
     

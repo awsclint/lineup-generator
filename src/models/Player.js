@@ -19,6 +19,7 @@ export class Player {
       startInning: data.availability?.startInning || 1,
       endInning: data.availability?.endInning || 6
     };
+    this.inactive = data.inactive || false;
     this.pitchingStats = {
       totalPitched: 0,
       currentConsecutivePitched: 0,
@@ -57,6 +58,10 @@ export class Player {
 
   isAvailableForInning(inning) {
     return inning >= this.availability.startInning && inning <= this.availability.endInning;
+  }
+
+  isAvailable() {
+    return !this.inactive;
   }
 
   canPitchInning(inning) {
@@ -111,6 +116,7 @@ export class Player {
       number: this.number,
       eligible: { ...this.eligible },
       availability: { ...this.availability },
+      inactive: this.inactive,
       pitchingStats: { ...this.pitchingStats }
     };
   }
