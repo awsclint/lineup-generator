@@ -344,13 +344,12 @@ const RosterManagement = ({ players, onAddPlayer, onUpdatePlayer, onRemovePlayer
         {players.map((player) => (
           <div key={player.id} className="player-card">
             <div className="player-header">
-              <div className="player-name">{getDisplayName(player)}</div>
-              {player.number && (
-                <div className="player-number">#{player.number}</div>
-              )}
-            </div>
-            
-            <div className="player-status">
+              <div className="player-info">
+                {player.number && (
+                  <div className="player-number">#{player.number}</div>
+                )}
+                <div className="player-name">{getDisplayName(player)}</div>
+              </div>
               <div 
                 className={`status-toggle ${player.inactive ? 'inactive' : 'active'}`}
                 onClick={() => toggleInactiveStatus(player.id)}

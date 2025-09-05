@@ -138,7 +138,9 @@ const BattingOrderPanel = ({ lineup, onReorder }) => {
 
   return (
     <div className="panel">
-      <h2>Batting Order</h2>
+      <div className="panel-header">
+        <h2>Batting Order</h2>
+      </div>
       
       <div style={{ 
         marginBottom: '1rem', 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const StatusBar = ({ lineup, onExportPDF, onExportCSV, onManageBattingOrders, lastSaved }) => {
+const StatusBar = ({ lineup, onExportPDF, onExportCSV, onManageBattingOrders }) => {
   // Safety checks for lineup and its methods
   if (!lineup) {
     return (
@@ -49,11 +49,6 @@ const StatusBar = ({ lineup, onExportPDF, onExportCSV, onManageBattingOrders, la
         {warnings.length > 0 && (
           <div className="status-warning">
             <strong>Warnings:</strong> {warnings.join(', ')}
-          </div>
-        )}
-        {lastSaved && (
-          <div className="status-info">
-            💾 {lastSaved.toLocaleTimeString()}
           </div>
         )}
       </div>

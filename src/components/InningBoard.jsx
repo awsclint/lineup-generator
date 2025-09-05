@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { loadConfig, saveConfig } from '../utils/storageUtils.js';
 import { GameConfig } from '../models/GameConfig.js';
 
-const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance, onToggleLock, players }) => {
+const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance, onToggleLock, players, onExportPDF, onExportCSV, onManageBattingOrders }) => {
   const [draggedPlayer, setDraggedPlayer] = useState(null);
   const [dragOverPosition, setDragOverPosition] = useState(null);
   const [gameInfo, setGameInfo] = useState({
@@ -187,13 +187,43 @@ const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance,
   return (
     <div className="panel">
       <div className="panel-header">
-        <h2>Fielding Assignments</h2>
-        <button 
-          className="btn btn-secondary"
-          onClick={() => setShowGameInfo(!showGameInfo)}
-        >
-          {showGameInfo ? 'Hide' : 'Edit'} Game Info
-        </button>
+        <div className="header-left">
+          <h2>Fielding Assignments</h2>
+          <div className="header-actions">
+            <button 
+              className="btn btn-primary"
+              onClick={onManageBattingOrders}
+              title="Save and manage batting orders"
+            >
+              📋 Manage Lineups
+            </button>
+            <button 
+              className="btn btn-secondary"
+              onClick={() => setShowGameInfo(!showGameInfo)}
+            >
+              {showGameInfo ? 'Hide' : '✏️ Edit'} Game Info
+            </button>
+          </div>
+        </div>
+        <div className="export-group">
+          <span className="export-label">Export:</span>
+          <div className="export-buttons">
+            <button 
+              className="btn btn-primary"
+              onClick={onExportPDF}
+              title="Export lineup as PDF"
+            >
+              📄 PDF
+            </button>
+            <button 
+              className="btn btn-primary"
+              onClick={onExportCSV}
+              title="Export lineup as CSV"
+            >
+              📊 CSV
+            </button>
+          </div>
+        </div>
       </div>
 
       {/* Game Info Section */}

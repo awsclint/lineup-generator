@@ -6,7 +6,6 @@ import Header from './components/Header.jsx';
 import RosterManagement from './components/RosterManagement';
 import BattingOrderPanel from './components/BattingOrderPanel.jsx';
 import InningBoard from './components/InningBoard.jsx';
-import StatusBar from './components/StatusBar.jsx';
 import BattingOrderManager from './components/BattingOrderManager.jsx';
 import { exportToPDF, exportToCSV } from './utils/exportUtils.js';
 import { 
@@ -17,7 +16,6 @@ import {
   saveConfig, 
   loadConfig, 
   hasStoredData,
-  getLastSaved,
   exportRoster,
   importRoster,
   validateRosterFile
@@ -193,19 +191,10 @@ function App() {
     }
   }, [players]);
 
-  // State for showing save status
-  const [lastSaved, setLastSaved] = useState(null);
   
   // State for batting order manager
   const [showBattingOrderManager, setShowBattingOrderManager] = useState(false);
 
-  // Update last saved time when data is saved
-  useEffect(() => {
-    const saved = getLastSaved();
-    if (saved) {
-      setLastSaved(saved);
-    }
-  }, [players, lineup]);
 
   const handleAddPlayer = (player) => {
     setPlayers(prev => [...prev, new Player({ ...player, id: Date.now() })]);
@@ -735,18 +724,13 @@ function App() {
             onRebalance={handleRebalance}
             onToggleLock={handleToggleLock}
             players={players}
+            onExportPDF={handleExportPDF}
+            onExportCSV={handleExportCSV}
+            onManageBattingOrders={() => setShowBattingOrderManager(true)}
           />
         </div>
       </div>
 
-      {/* Status Bar */}
-      <StatusBar 
-        lineup={lineup} 
-        onExportPDF={handleExportPDF}
-        onExportCSV={handleExportCSV}
-        onManageBattingOrders={() => setShowBattingOrderManager(true)}
-        lastSaved={lastSaved}
-      />
 
       {/* Batting Order Manager Modal */}
       <BattingOrderManager

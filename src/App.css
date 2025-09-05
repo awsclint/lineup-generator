@@ -673,18 +673,21 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  gap: 1rem;
 }
 
-.player-status {
-  margin-bottom: 1rem;
+.player-info {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
 }
+
 
 .status-toggle {
   cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
   transition: all 0.2s;
   background: var(--gray-50);
   border: 2px solid var(--gray-200);
@@ -692,6 +695,7 @@
   font-size: 0.875rem;
   text-align: center;
   user-select: none;
+  height: fit-content;
 }
 
 .status-toggle:hover {
@@ -1717,6 +1721,12 @@
   overflow: hidden;
 }
 
+.panel-header .header-left {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
 .panel-header::before {
   content: '';
   position: absolute;
@@ -1786,6 +1796,67 @@
   border-color: rgba(255, 255, 255, 0.5);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Header actions within panel header */
+.panel-header .header-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.panel-header .header-actions .btn {
+  position: relative;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  min-width: 120px;
+  height: 40px;
+  justify-content: center;
+}
+
+.panel-header .header-actions .btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Export group styling */
+.panel-header .export-group {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  backdrop-filter: blur(10px);
+}
+
+.panel-header .export-label {
+  color: white;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+}
+
+.panel-header .export-buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.panel-header .export-buttons .btn {
+  min-width: 80px;
+  height: 36px;
+  font-size: 0.8rem;
+  padding: 0.25rem 0.5rem;
 }
 
 /* Game Info Section */
