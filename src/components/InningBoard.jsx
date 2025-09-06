@@ -3,6 +3,8 @@ import { loadConfig, saveConfig } from '../utils/storageUtils.js';
 import { GameConfig } from '../models/GameConfig.js';
 
 const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance, onToggleLock, players, onExportPDF, onExportCSV, onManageBattingOrders }) => {
+  // Debug fielding assignments
+  console.log('InningBoard rendered with fieldingAssignments:', fieldingAssignments);
   const [draggedPlayer, setDraggedPlayer] = useState(null);
   const [dragOverPosition, setDragOverPosition] = useState(null);
   const [gameInfo, setGameInfo] = useState({

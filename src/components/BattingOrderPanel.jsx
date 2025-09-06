@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 
 const BattingOrderPanel = ({ lineup, onReorder }) => {
+  // Debug lineup
+  console.log('BattingOrderPanel rendered with lineup:', lineup);
   const [dragOverIndex, setDragOverIndex] = useState(null);
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [insertionIndex, setInsertionIndex] = useState(null);
@@ -66,6 +68,8 @@ const BattingOrderPanel = ({ lineup, onReorder }) => {
       setDragOverIndex(targetIndex);
       
       // Calculate insertion point based on mouse position
+      if (!e.currentTarget) return;
+      
       const rect = e.currentTarget.getBoundingClientRect();
       const mouseY = e.clientY;
       const itemHeight = rect.height;

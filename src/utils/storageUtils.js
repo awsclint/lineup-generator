@@ -44,6 +44,12 @@ export const saveLineup = (lineup) => {
   try {
     if (!lineup) return false;
     
+    // Check if lineup has toJSON method
+    if (typeof lineup.toJSON !== 'function') {
+      console.error('Lineup object does not have toJSON method:', lineup);
+      return false;
+    }
+    
     const lineupData = lineup.toJSON();
     localStorage.setItem(STORAGE_KEYS.LINEUP, JSON.stringify(lineupData));
     localStorage.setItem(STORAGE_KEYS.LAST_SAVED, new Date().toISOString());

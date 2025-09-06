@@ -401,7 +401,17 @@ export class Lineup {
   }
 
   static fromJSON(data, players, config) {
-    const lineup = new Lineup(players, config);
+    // Create lineup without calling initializeLineup to avoid regenerating batting order
+    const lineup = Object.create(Lineup.prototype);
+    lineup.players = players;
+    lineup.config = config;
+    lineup.battingOrder = [];
+    lineup.fieldingAssignments = {};
+    lineup.lockedInnings = new Set();
+    lineup.history = [];
+    lineup.historyIndex = -1;
+    
+    // Set the saved data
     lineup.battingOrder = players.filter(p => data.battingOrder.includes(p.id));
     lineup.fieldingAssignments = data.fieldingAssignments;
     lineup.lockedInnings = new Set(data.lockedInnings);

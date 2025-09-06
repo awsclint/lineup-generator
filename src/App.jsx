@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './App.css';
 import { Lineup } from './models/Lineup.js';
 import { Player } from './models/Player.js';
@@ -146,10 +146,27 @@ function App() {
     return assignments;
   });
 
+  // Debug fielding assignments changes
+  useEffect(() => {
+    console.log('Fielding assignments state changed:', fieldingAssignments);
+  }, [fieldingAssignments]);
+
   const [lineup, setLineup] = useState(() => {
     const initialLineup = new Lineup(players);
     return initialLineup;
   });
+
+  // Debug lineup changes
+  useEffect(() => {
+    console.log('Lineup state changed:', lineup);
+    if (lineup && lineup.battingOrder) {
+      console.log('Batting order:', lineup.battingOrder.map(p => p.firstName + ' ' + p.lastName));
+    }
+  }, [lineup]);
+  
+  // Flag to track when we're loading a lineup (to prevent fielding assignments reset)
+  const [isLoadingLineup, setIsLoadingLineup] = useState(false);
+  const isLoadingLineupRef = useRef(false);
 
   // Auto-save players when they change
   useEffect(() => {
@@ -165,31 +182,67 @@ function App() {
     }
   }, [lineup]);
 
-  // Regenerate lineup when players change
+  // Regenerate lineup when players change (but not when loading a saved lineup)
   useEffect(() => {
-    if (players && players.length > 0) {
-      const newLineup = new Lineup(players);
-      setLineup(newLineup);
-      
-      // Reset fielding assignments when lineup is regenerated
-      const newAssignments = {};
-      for (let inning = 1; inning <= 6; inning++) {
-        newAssignments[inning] = {
-          P: null,
-          C: null,
-          '1B': null,
-          '2B': null,
-          '3B': null,
-          SS: null,
-          LF: null,
-          CF: null,
-          RF: null,
-          Bench: []
-        };
-      }
-      setFieldingAssignments(newAssignments);
+    console.log('Lineup regeneration useEffect triggered. isLoadingLineup:', isLoadingLineup, 'ref:', isLoadingLineupRef.current);
+    console.log('Current fielding assignments before regeneration:', fieldingAssignments);
+    
+    // Don't regenerate if we're currently loading a lineup
+    if (isLoadingLineup || isLoadingLineupRef.current) {
+      console.log('Skipping lineup regeneration because loading lineup');
+      return;
     }
-  }, [players]);
+    
+    if (players && players.length > 0) {
+      // Check if we have an existing lineup with a batting order
+      const hasExistingBattingOrder = lineup && lineup.battingOrder && lineup.battingOrder.length > 0;
+      const hasExistingAssignments = Object.values(fieldingAssignments).some(inning => 
+        Object.values(inning).some(position => 
+          position !== null && (Array.isArray(position) ? position.length > 0 : true)
+        )
+      );
+      
+      // Only create a new lineup if we don't have existing data
+      if (!hasExistingBattingOrder && !hasExistingAssignments) {
+        console.log('Creating new lineup because no existing data');
+        const newLineup = new Lineup(players);
+        
+        // Ensure the lineup is fully initialized before setting it
+        if (newLineup && typeof newLineup.toJSON === 'function') {
+          setLineup(newLineup);
+          
+          console.log('Resetting fielding assignments because not loading lineup and no existing assignments');
+          const newAssignments = {};
+          for (let inning = 1; inning <= 6; inning++) {
+            newAssignments[inning] = {
+              P: null,
+              C: null,
+              '1B': null,
+              '2B': null,
+              '3B': null,
+              SS: null,
+              LF: null,
+              CF: null,
+              RF: null,
+              Bench: []
+            };
+          }
+          setFieldingAssignments(newAssignments);
+        } else {
+          console.error('Failed to create valid lineup object');
+        }
+      } else {
+        console.log('Preserving existing lineup and fielding assignments during regeneration');
+        // Update the existing lineup with new players but preserve batting order and fielding assignments
+        if (lineup) {
+          const updatedLineup = Object.create(Object.getPrototypeOf(lineup));
+          Object.assign(updatedLineup, lineup);
+          updatedLineup.players = players;
+          setLineup(updatedLineup);
+        }
+      }
+    }
+  }, [players, isLoadingLineup]);
 
   
   // State for batting order manager
@@ -314,8 +367,14 @@ function App() {
     if (!lineup) return;
     
     try {
-      lineup.battingOrder = newOrder;
-      setLineup({ ...lineup });
+      // Create a new Lineup instance with the updated batting order
+      const newLineup = new Lineup(players);
+      newLineup.battingOrder = newOrder;
+      newLineup.fieldingAssignments = lineup.fieldingAssignments;
+      newLineup.lockedInnings = lineup.lockedInnings;
+      newLineup.history = lineup.history;
+      newLineup.historyIndex = lineup.historyIndex;
+      setLineup(newLineup);
     } catch (error) {
       console.error('Error reordering batting:', error);
     }
@@ -663,39 +722,67 @@ function App() {
 
   const handleLoadBattingOrder = (orderData) => {
     try {
-      // Load players
-      if (orderData.players) {
-        setPlayers(orderData.players);
-      }
+      console.log('Loading batting order with data:', orderData);
       
-      // Load fielding assignments
-      if (orderData.fieldingAssignments) {
-        setFieldingAssignments(orderData.fieldingAssignments);
-      }
+      // Set loading flag to prevent fielding assignments reset (set ref first for immediate effect)
+      isLoadingLineupRef.current = true;
+      setIsLoadingLineup(true);
       
-      // Load lineup
+      // Load everything in a single batch to prevent intermediate useEffect triggers
+      const newPlayers = orderData.players || players;
+      const newFieldingAssignments = orderData.fieldingAssignments || {};
+      
+      // Convert batting order data to Player objects
+      let newLineup = null;
       if (orderData.battingOrder) {
-        const newLineup = new Lineup(orderData.players || players);
-        // Convert batting order data to Player objects
         const battingOrderPlayers = orderData.battingOrder.map(playerData => {
           if (typeof playerData === 'object' && playerData.id) {
             // If it's already a Player object, return it
             return playerData;
           } else if (typeof playerData === 'string') {
             // If it's a player ID, find the player
-            return (orderData.players || players).find(p => p.id === playerData);
+            return newPlayers.find(p => p.id === playerData);
           }
           return null;
         }).filter(Boolean);
         
-        newLineup.battingOrder = battingOrderPlayers;
+        // Create lineup data for fromJSON
+        const lineupData = {
+          players: newPlayers.map(p => p.toJSON()),
+          config: null,
+          battingOrder: battingOrderPlayers.map(p => p.id),
+          fieldingAssignments: newFieldingAssignments,
+          lockedInnings: []
+        };
+        
+        newLineup = Lineup.fromJSON(lineupData, newPlayers, null);
+      }
+      
+      // Set all state at once
+      if (orderData.players) {
+        setPlayers(newPlayers);
+      }
+      if (newLineup) {
         setLineup(newLineup);
+      }
+      if (orderData.fieldingAssignments) {
+        console.log('Setting fielding assignments:', newFieldingAssignments);
+        setFieldingAssignments(newFieldingAssignments);
       }
       
       console.log('Batting order loaded successfully');
+      console.log('Fielding assignments loaded:', newFieldingAssignments);
+      
+      // Reset loading flag after a small delay to ensure all state updates are processed
+      setTimeout(() => {
+        setIsLoadingLineup(false);
+        isLoadingLineupRef.current = false;
+      }, 50);
     } catch (error) {
       console.error('Failed to load batting order:', error);
       alert('Failed to load batting order. Please try again.');
+      setIsLoadingLineup(false);
+      isLoadingLineupRef.current = false;
     }
   };
 
