@@ -370,7 +370,7 @@ function App() {
         isHome: true
       };
 
-      exportToPDF(lineup, gameInfo);
+      exportToPDF(lineup, fieldingAssignments, gameInfo);
     } catch (error) {
       console.error('PDF export failed:', error);
       alert('PDF export failed. Please try again.');
@@ -394,7 +394,7 @@ function App() {
         isHome: true
       };
 
-      exportToCSV(lineup, gameInfo);
+      exportToCSV(lineup, fieldingAssignments, gameInfo);
     } catch (error) {
       console.error('CSV export failed:', error);
       alert('CSV export failed. Please try again.');

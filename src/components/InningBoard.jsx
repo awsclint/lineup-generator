@@ -128,21 +128,11 @@ const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance,
 
   // Helper function to get current player for a position
   const getCurrentPlayer = (inning, position) => {
-    console.log('=== GET CURRENT PLAYER DEBUG ===');
-    console.log('Looking for:', { inning, position });
-    console.log('Fielding assignments prop:', fieldingAssignments);
-    console.log('Inning assignments:', fieldingAssignments?.[inning]);
-    console.log('Position assignment:', fieldingAssignments?.[inning]?.[position]);
-    
     if (!fieldingAssignments || !fieldingAssignments[inning]) {
-      console.log('Returning null - missing data');
       return null;
     }
     
-    const result = fieldingAssignments[inning][position];
-    console.log('Returning player:', result);
-    console.log('=== END DEBUG ===');
-    return result;
+    return fieldingAssignments[inning][position];
   };
 
   // Helper function to handle player change
@@ -155,9 +145,8 @@ const InningBoard = ({ lineup, fieldingAssignments, onUpdateLineup, onRebalance,
       return;
     }
     
-    const player = players.find(p => p.id === playerId);
+    const player = players.find(p => p.id === parseInt(playerId) || p.id === playerId);
     if (player) {
-      console.log('Calling onUpdateLineup with:', { inning, position, player });
       onUpdateLineup(inning, position, player);
     } else {
       console.error('Player not found for ID:', playerId);

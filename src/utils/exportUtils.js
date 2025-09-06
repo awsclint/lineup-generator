@@ -1,7 +1,7 @@
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
-export const exportToPDF = (lineup, config) => {
+export const exportToPDF = (lineup, fieldingAssignments, config) => {
   const doc = new jsPDF();
   
   // Page 1: Header and Batting Order
@@ -43,7 +43,7 @@ export const exportToPDF = (lineup, config) => {
     const row = [pos];
     for (let inning = 1; inning <= 6; inning++) {
       if (pos === 'Bench') {
-        const benchPlayers = lineup.fieldingAssignments[inning].Bench;
+        const benchPlayers = fieldingAssignments[inning]?.Bench;
         if (Array.isArray(benchPlayers) && benchPlayers.length > 0) {
           const benchNames = benchPlayers.map(p => 
             `${p.firstName} ${p.lastName ? p.lastName.charAt(0) + '.' : ''}`
@@ -53,7 +53,7 @@ export const exportToPDF = (lineup, config) => {
           row.push('-');
         }
       } else {
-        const player = lineup.fieldingAssignments[inning][pos];
+        const player = fieldingAssignments[inning]?.[pos];
         if (player) {
           row.push(`${player.firstName} ${player.lastName ? player.lastName.charAt(0) + '.' : ''}`);
         } else {
@@ -77,7 +77,7 @@ export const exportToPDF = (lineup, config) => {
   doc.save(`${config.teamName}_vs_${config.opponent}_${config.date}.pdf`);
 };
 
-export const exportToCSV = (lineup, config) => {
+export const exportToCSV = (lineup, fieldingAssignments, config) => {
   const positions = ['P', 'C', '1B', '2B', '3B', 'SS', 'LF', 'CF', 'RF', 'Bench'];
   
   // Create CSV header
@@ -88,7 +88,7 @@ export const exportToCSV = (lineup, config) => {
     const row = [pos];
     for (let inning = 1; inning <= 6; inning++) {
       if (pos === 'Bench') {
-        const benchPlayers = lineup.fieldingAssignments[inning].Bench;
+        const benchPlayers = fieldingAssignments[inning]?.Bench;
         if (Array.isArray(benchPlayers) && benchPlayers.length > 0) {
           const benchNames = benchPlayers.map(p => 
             `${p.firstName} ${p.lastName ? p.lastName.charAt(0) + '.' : ''}`
@@ -98,7 +98,7 @@ export const exportToCSV = (lineup, config) => {
           row.push('');
         }
       } else {
-        const player = lineup.fieldingAssignments[inning][pos];
+        const player = fieldingAssignments[inning]?.[pos];
         if (player) {
           row.push(`${player.firstName} ${player.lastName ? player.lastName.charAt(0) + '.' : ''}`);
         } else {
